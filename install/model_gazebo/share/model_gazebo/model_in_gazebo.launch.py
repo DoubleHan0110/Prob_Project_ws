@@ -13,6 +13,7 @@ def generate_launch_description():
     # ====== 路径设置 ======
     # 找到 gazebo_ros 自带的 gazebo.launch.py
     gazebo_pkg = FindPackageShare('gazebo_ros').find('gazebo_ros')
+    world_pkg = FindPackageShare('model_gazebo').find('model_gazebo')
     
     gazebo_launch = PathJoinSubstitution(
         [gazebo_pkg, 'launch', 'gazebo.launch.py']
@@ -22,7 +23,7 @@ def generate_launch_description():
     desc_pkg = FindPackageShare('model_description').find('model_description')
 
     default_world = PathJoinSubstitution(
-        [gazebo_pkg, 'worlds', 'empty.world']  # 如果暂时没有world，可以后面改成默认
+        [world_pkg, 'worlds', 'turtlebot3_house.world']
     )
 
     # 机器人 URDF / Xacro 路径（改成你自己的文件名）

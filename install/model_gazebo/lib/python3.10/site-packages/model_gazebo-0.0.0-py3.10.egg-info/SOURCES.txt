@@ -14,3 +14,4 @@ resource/model_gazebo
 test/test_copyright.py
 test/test_flake8.py
 test/test_pep257.py
+worlds/turtlebot3_house.world

@@ -3,7 +3,7 @@
 /home/han/prob_project_ws/install/model_gazebo/share/ament_index/resource_index/packages/model_gazebo
 /home/han/prob_project_ws/install/model_gazebo/share/model_gazebo/package.xml
 /home/han/prob_project_ws/install/model_gazebo/share/model_gazebo/model_in_gazebo.launch.py
-/home/han/prob_project_ws/install/model_gazebo/share/model_gazebo/worlds
+/home/han/prob_project_ws/install/model_gazebo/share/model_gazebo/worlds/turtlebot3_house.world
 /home/han/prob_project_ws/install/model_gazebo/lib/python3.10/site-packages/model_gazebo-0.0.0-py3.10.egg-info/zip-safe
 /home/han/prob_project_ws/install/model_gazebo/lib/python3.10/site-packages/model_gazebo-0.0.0-py3.10.egg-info/top_level.txt
 /home/han/prob_project_ws/install/model_gazebo/lib/python3.10/site-packages/model_gazebo-0.0.0-py3.10.egg-info/requires.txt
