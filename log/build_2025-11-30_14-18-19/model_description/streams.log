@@ -1,0 +1,84 @@
+[0.265s] Invoking command in '/home/han/prob_project_ws/src/model_description': PYTHONPATH=/home/han/prob_project_ws/build/model_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/han/prob_project_ws/install/model_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/model_description build --build-base /home/han/prob_project_ws/build/model_description/build install --record /home/han/prob_project_ws/build/model_description/install.log --single-version-externally-managed install_data
+[0.359s] running egg_info
+[0.359s] creating ../../build/model_description/model_description.egg-info
+[0.359s] writing ../../build/model_description/model_description.egg-info/PKG-INFO
+[0.360s] writing dependency_links to ../../build/model_description/model_description.egg-info/dependency_links.txt
+[0.360s] writing entry points to ../../build/model_description/model_description.egg-info/entry_points.txt
+[0.360s] writing requirements to ../../build/model_description/model_description.egg-info/requires.txt
+[0.360s] writing top-level names to ../../build/model_description/model_description.egg-info/top_level.txt
+[0.360s] writing manifest file '../../build/model_description/model_description.egg-info/SOURCES.txt'
+[0.360s] reading manifest file '../../build/model_description/model_description.egg-info/SOURCES.txt'
+[0.361s] writing manifest file '../../build/model_description/model_description.egg-info/SOURCES.txt'
+[0.361s] running build
+[0.361s] running build_py
+[0.361s] creating /home/han/prob_project_ws/build/model_description/build
+[0.361s] creating /home/han/prob_project_ws/build/model_description/build/lib
+[0.361s] creating /home/han/prob_project_ws/build/model_description/build/lib/model_description
+[0.361s] copying model_description/__init__.py -> /home/han/prob_project_ws/build/model_description/build/lib/model_description
+[0.361s] running install
+[0.361s] running install_lib
+[0.361s] creating /home/han/prob_project_ws/install/model_description/lib/python3.10/site-packages/model_description
+[0.361s] copying /home/han/prob_project_ws/build/model_description/build/lib/model_description/__init__.py -> /home/han/prob_project_ws/install/model_description/lib/python3.10/site-packages/model_description
+[0.362s] byte-compiling /home/han/prob_project_ws/install/model_description/lib/python3.10/site-packages/model_description/__init__.py to __init__.cpython-310.pyc
+[0.362s] running install_data
+[0.362s] creating /home/han/prob_project_ws/install/model_description/share/ament_index
+[0.362s] creating /home/han/prob_project_ws/install/model_description/share/ament_index/resource_index
+[0.362s] creating /home/han/prob_project_ws/install/model_description/share/ament_index/resource_index/packages
+[0.362s] copying resource/model_description -> /home/han/prob_project_ws/install/model_description/share/ament_index/resource_index/packages
+[0.362s] copying package.xml -> /home/han/prob_project_ws/install/model_description/share/model_description
+[0.362s] creating /home/han/prob_project_ws/install/model_description/share/model_description/launch
+[0.362s] copying launch/display.launch.py -> /home/han/prob_project_ws/install/model_description/share/model_description/launch
+[0.362s] creating /home/han/prob_project_ws/install/model_description/share/model_description/urdf
+[0.362s] copying urdf/fish_bot_test.urdf -> /home/han/prob_project_ws/install/model_description/share/model_description/urdf
+[0.362s] copying urdf/LeKiwi.urdf -> /home/han/prob_project_ws/install/model_description/share/model_description/urdf
+[0.362s] creating /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.362s] copying meshes/Battery---Battery-5.2-Ah-DC5521-Plug-v2.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.362s] copying meshes/SO_ARM100_08k_Asym_Mirror_Clip-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.362s] copying meshes/WaveShare_Mounting_Plate_01d-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.362s] copying meshes/servo_controller_mount-v3.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.362s] copying meshes/4-Omni-Directional-Wheel_Single_Body-v1-2.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.368s] copying meshes/Wrist-Camera-Mount-v11.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.368s] copying meshes/Camera-Model-v3-1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.368s] copying meshes/ST3215_Servo_Motor-v1-1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.368s] copying meshes/STS3215_03a-v1-3.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.368s] copying meshes/4-Omni-Directional-Wheel_Single_Body-v1-1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.374s] copying meshes/base_plate_layer1-v5.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.374s] copying meshes/STS3215_03a-v1-4.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.374s] copying meshes/ST3215_Servo_Motor-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.374s] copying meshes/Wrist_Roll_08c-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.374s] copying meshes/Wrist_Roll_Pitch_08i-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/drive_motor_mount-v11-1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/STS3215_03a-v1-2.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/omni_wheel_mount-v5-1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-4.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/Top-V2-v2.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-2.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/ST3215_Servo_Motor-v1-2.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/STS3215_03a_Wrist_Roll-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.375s] copying meshes/SO_ARM100_08k_116_Square-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.376s] copying meshes/Moving_Jaw_08d-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.376s] copying meshes/base_plate_layer2-v3.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.376s] copying meshes/4-Omni-Directional-Wheel_Single_Body-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.381s] copying meshes/lipo_battery_mount-v3.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.381s] copying meshes/Camera-Mount-v8.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.381s] copying meshes/Passive_Horn_01-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.381s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-3.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.381s] copying meshes/drive_motor_mount-v11.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.381s] copying meshes/Rotation_Pitch_08i-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.381s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-5.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/drive_motor_mount-v11-2.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/STS3215_03a-v1-1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/SO_ARM100_08k_Mirror-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/Bottom-V2-v3.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/Camera-Model-v3.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/omni_wheel_mount-v5.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/omni_wheel_mount-v5-2.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.382s] copying meshes/Base_08q-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.383s] copying meshes/STS3215_03a-v1.stl -> /home/han/prob_project_ws/install/model_description/share/model_description/meshes
+[0.383s] running install_egg_info
+[0.384s] Copying ../../build/model_description/model_description.egg-info to /home/han/prob_project_ws/install/model_description/lib/python3.10/site-packages/model_description-0.0.0-py3.10.egg-info
+[0.384s] running install_scripts
+[0.393s] writing list of installed files to '/home/han/prob_project_ws/build/model_description/install.log'
+[0.404s] Invoked command in '/home/han/prob_project_ws/src/model_description' returned '0': PYTHONPATH=/home/han/prob_project_ws/build/model_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/han/prob_project_ws/install/model_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/model_description build --build-base /home/han/prob_project_ws/build/model_description/build install --record /home/han/prob_project_ws/build/model_description/install.log --single-version-externally-managed install_data

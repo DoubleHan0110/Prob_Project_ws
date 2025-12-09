@@ -1,0 +1,140 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"base_plate_layer1-v5" [label="base_plate_layer1-v5"];
+"servo_controller_mount-v3" [label="servo_controller_mount-v3"];
+"lipo_battery_mount-v3" [label="lipo_battery_mount-v3"];
+"Battery---Battery-5.2-Ah-DC5521-Plug-v2" [label="Battery---Battery-5.2-Ah-DC5521-Plug-v2"];
+"94868A713_NO-THREADS_Female-Threaded-Hex-Standoff" [label="94868A713_NO-THREADS_Female-Threaded-Hex-Standoff"];
+"base_plate_layer2-v3" [label="base_plate_layer2-v3"];
+"Bottom-V2-v3" [label="Bottom-V2-v3"];
+"Top-V2-v2" [label="Top-V2-v2"];
+"Base_08q-v1" [label="Base_08q-v1"];
+"WaveShare_Mounting_Plate_01d-v1" [label="WaveShare_Mounting_Plate_01d-v1"];
+"STS3215_03a-v1" [label="STS3215_03a-v1"];
+"Rotation_Pitch_08i-v1" [label="Rotation_Pitch_08i-v1"];
+"SO_ARM100_08k_Asym_Mirror_Clip-v1" [label="SO_ARM100_08k_Asym_Mirror_Clip-v1"];
+"STS3215_03a-v1-1" [label="STS3215_03a-v1-1"];
+"SO_ARM100_08k_116_Square-v1" [label="SO_ARM100_08k_116_Square-v1"];
+"STS3215_03a-v1-2" [label="STS3215_03a-v1-2"];
+"SO_ARM100_08k_Mirror-v1" [label="SO_ARM100_08k_Mirror-v1"];
+"STS3215_03a-v1-3" [label="STS3215_03a-v1-3"];
+"Wrist_Roll_Pitch_08i-v1" [label="Wrist_Roll_Pitch_08i-v1"];
+"STS3215_03a_Wrist_Roll-v1" [label="STS3215_03a_Wrist_Roll-v1"];
+"Wrist_Roll_08c-v1" [label="Wrist_Roll_08c-v1"];
+"STS3215_03a-v1-4" [label="STS3215_03a-v1-4"];
+"Moving_Jaw_08d-v1" [label="Moving_Jaw_08d-v1"];
+"Wrist-Camera-Mount-v11" [label="Wrist-Camera-Mount-v11"];
+"Camera-Model-v3-1" [label="Camera-Model-v3-1"];
+"Passive_Horn_01-v1" [label="Passive_Horn_01-v1"];
+"Camera-Mount-v8" [label="Camera-Mount-v8"];
+"Camera-Model-v3" [label="Camera-Model-v3"];
+"94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-5" [label="94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-5"];
+"94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-4" [label="94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-4"];
+"94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-3" [label="94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-3"];
+"94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-2" [label="94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-2"];
+"94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-1" [label="94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-1"];
+"drive_motor_mount-v11-2" [label="drive_motor_mount-v11-2"];
+"ST3215_Servo_Motor-v1-2" [label="ST3215_Servo_Motor-v1-2"];
+"omni_wheel_mount-v5-2" [label="omni_wheel_mount-v5-2"];
+"4-Omni-Directional-Wheel_Single_Body-v1-2" [label="4-Omni-Directional-Wheel_Single_Body-v1-2"];
+"drive_motor_mount-v11" [label="drive_motor_mount-v11"];
+"ST3215_Servo_Motor-v1" [label="ST3215_Servo_Motor-v1"];
+"omni_wheel_mount-v5" [label="omni_wheel_mount-v5"];
+"4-Omni-Directional-Wheel_Single_Body-v1" [label="4-Omni-Directional-Wheel_Single_Body-v1"];
+"drive_motor_mount-v11-1" [label="drive_motor_mount-v11-1"];
+"ST3215_Servo_Motor-v1-1" [label="ST3215_Servo_Motor-v1-1"];
+"omni_wheel_mount-v5-1" [label="omni_wheel_mount-v5-1"];
+"4-Omni-Directional-Wheel_Single_Body-v1-1" [label="4-Omni-Directional-Wheel_Single_Body-v1-1"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "base_link_to_chassis" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"base_link_to_chassis" -> "base_plate_layer1-v5"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-15" [label="xyz: 0 0.06 0 \nrpy: 0 -0 0"]
+"base_plate_layer1-v5_Rigid-15" -> "servo_controller_mount-v3"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-18" [label="xyz: -0.04 -0.02 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_Rigid-18" -> "lipo_battery_mount-v3"
+"lipo_battery_mount-v3" -> "lipo_battery_mount-v3_Rigid-19" [label="xyz: -0.0115 0 -0.0065 \nrpy: 3.14159 -0 0"]
+"lipo_battery_mount-v3_Rigid-19" -> "Battery---Battery-5.2-Ah-DC5521-Plug-v2"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-20" [label="xyz: 0 0 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_Rigid-20" -> "94868A713_NO-THREADS_Female-Threaded-Hex-Standoff"
+"94868A713_NO-THREADS_Female-Threaded-Hex-Standoff" -> "94868A713_NO-THREADS_Female-Threaded-Hex-Standoff_Rigid-21" [label="xyz: 0 0 -0.05 \nrpy: 3.14159 -0 0"]
+"94868A713_NO-THREADS_Female-Threaded-Hex-Standoff_Rigid-21" -> "base_plate_layer2-v3"
+"base_plate_layer2-v3" -> "base_plate_layer2-v3_Rigid-22" [label="xyz: -0.02 -0.1 0.007 \nrpy: 0 -0 0"]
+"base_plate_layer2-v3_Rigid-22" -> "Bottom-V2-v3"
+"Bottom-V2-v3" -> "Bottom-V2-v3_Rigid-24" [label="xyz: 0.0197 0.036125 0.0025 \nrpy: 0 -0 -2.46519e-32"]
+"Bottom-V2-v3_Rigid-24" -> "Top-V2-v2"
+"base_plate_layer2-v3" -> "base_plate_layer2-v3_Rigid-42" [label="xyz: 0.04 0.08 0.007 \nrpy: 0 -0 0"]
+"base_plate_layer2-v3_Rigid-42" -> "Base_08q-v1"
+"Base_08q-v1" -> "Base_08q-v1_Rigid-43" [label="xyz: -0.04 -0.075252 0.0603 \nrpy: 3.14159 -0 2.35619"]
+"Base_08q-v1_Rigid-43" -> "WaveShare_Mounting_Plate_01d-v1"
+"Base_08q-v1" -> "Base_08q-v1_Rigid-44" [label="xyz: -0.02975 -0.045652 0.0278 \nrpy: 1.5708 -8.85198e-51 -2.48033e-48"]
+"Base_08q-v1_Rigid-44" -> "STS3215_03a-v1"
+"STS3215_03a-v1" -> "STS3215_03a-v1_Revolute-45" [label="xyz: -0.01025 0.0346 -0.0328 \nrpy: 1.5708 -2.78105e-32 3.9443e-31"]
+"STS3215_03a-v1_Revolute-45" -> "Rotation_Pitch_08i-v1"
+"Rotation_Pitch_08i-v1" -> "Rotation_Pitch_08i-v1_Rigid-46" [label="xyz: 0.023 -0.04085 -0.0232 \nrpy: -3.9443e-31 -4.11612e-31 -2.78105e-32"]
+"Rotation_Pitch_08i-v1_Rigid-46" -> "SO_ARM100_08k_Asym_Mirror_Clip-v1"
+"Rotation_Pitch_08i-v1" -> "Rotation_Pitch_08i-v1_Rigid-48" [label="xyz: -0.0163 -0.04085 -0.0194 \nrpy: 1.82602e-16 -4.11612e-31 -2.78105e-32"]
+"Rotation_Pitch_08i-v1_Rigid-48" -> "STS3215_03a-v1-1"
+"STS3215_03a-v1-1" -> "STS3215_03a-v1-1_Revolute-49" [label="xyz: 0.0346 0.01025 -0.0328 \nrpy: 3.14159 1.71813e-32 -3.13734e-48"]
+"STS3215_03a-v1-1_Revolute-49" -> "SO_ARM100_08k_116_Square-v1"
+"SO_ARM100_08k_116_Square-v1" -> "SO_ARM100_08k_116_Square-v1_Rigid-50" [label="xyz: -0.0361 -0.101512 -0.0136995 \nrpy: -7.5118e-34 -4.93038e-32 1.38778e-17"]
+"SO_ARM100_08k_116_Square-v1_Rigid-50" -> "STS3215_03a-v1-2"
+"STS3215_03a-v1-2" -> "STS3215_03a-v1-2_Revolute-51" [label="xyz: 0.0346 -0.0130697 0.0317818 \nrpy: -6.84228e-49 -3.45127e-31 -1.38778e-17"]
+"STS3215_03a-v1-2_Revolute-51" -> "SO_ARM100_08k_Mirror-v1"
+"SO_ARM100_08k_Mirror-v1" -> "SO_ARM100_08k_Mirror-v1_Rigid-52" [label="xyz: -0.0361 0.0988506 0.0331184 \nrpy: -3.14159 5.91646e-31 3.88938e-62"]
+"SO_ARM100_08k_Mirror-v1_Rigid-52" -> "STS3215_03a-v1-3"
+"STS3215_03a-v1-3" -> "STS3215_03a-v1-3_Revolute-53" [label="xyz: 0.0346 -0.0340816 0.00439862 \nrpy: 3.14159 9.86076e-32 -9.50316e-47"]
+"STS3215_03a-v1-3_Revolute-53" -> "Wrist_Roll_Pitch_08i-v1"
+"Wrist_Roll_Pitch_08i-v1" -> "Wrist_Roll_Pitch_08i-v1_Rigid-54" [label="xyz: 0.0089 0.0339283 -0.0485059 \nrpy: -3.14159 -9.86076e-32 0"]
+"Wrist_Roll_Pitch_08i-v1_Rigid-54" -> "STS3215_03a_Wrist_Roll-v1"
+"STS3215_03a_Wrist_Roll-v1" -> "STS3215_03a_Wrist_Roll-v1_Revolute-55" [label="xyz: -0.029 0.00810632 0.0068695 \nrpy: 3.14159 -0 0"]
+"STS3215_03a_Wrist_Roll-v1_Revolute-55" -> "Wrist_Roll_08c-v1"
+"Wrist_Roll_08c-v1" -> "Wrist_Roll_08c-v1_Rigid-56" [label="xyz: 0.013 0.0199421 -0.00490682 \nrpy: 1.5708 -0 0"]
+"Wrist_Roll_08c-v1_Rigid-56" -> "STS3215_03a-v1-4"
+"STS3215_03a-v1-4" -> "STS3215_03a-v1-4_Revolute-57" [label="xyz: -0.0328 -0.0239122 0.0270264 \nrpy: -1.5708 3.9443e-31 -1.97215e-31"]
+"STS3215_03a-v1-4_Revolute-57" -> "Moving_Jaw_08d-v1"
+"Wrist_Roll_08c-v1" -> "Wrist_Roll_08c-v1_Rigid-58" [label="xyz: 0.013 0.0271926 -0.00152587 \nrpy: -1.5708 -0 0"]
+"Wrist_Roll_08c-v1_Rigid-58" -> "Wrist-Camera-Mount-v11"
+"Wrist-Camera-Mount-v11" -> "Wrist-Camera-Mount-v11_Rigid-71" [label="xyz: 0.00155 0.00712333 0.0639735 \nrpy: 1.5708 5.55112e-17 2.18166"]
+"Wrist-Camera-Mount-v11_Rigid-71" -> "Camera-Model-v3-1"
+"Base_08q-v1" -> "Base_08q-v1_Rigid-47" [label="xyz: -0.04 -0.012852 0.0136 \nrpy: -1.5708 -8.85198e-51 -2.48033e-48"]
+"Base_08q-v1_Rigid-47" -> "Passive_Horn_01-v1"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-28" [label="xyz: 0.02 0.1 0 \nrpy: 0 -0 0"]
+"base_plate_layer1-v5_Rigid-28" -> "Camera-Mount-v8"
+"Camera-Mount-v8" -> "Camera-Mount-v8_Rigid-29" [label="xyz: -0.034 0.00636666 0.0383195 \nrpy: 3.14159 -1.39626 3.14159"]
+"Camera-Mount-v8_Rigid-29" -> "Camera-Model-v3"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-30" [label="xyz: 0.02 -0.1 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_Rigid-30" -> "94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-5"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-31" [label="xyz: 0.0766025 0.0673205 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_Rigid-31" -> "94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-4"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-32" [label="xyz: -0.0966025 0.0326795 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_Rigid-32" -> "94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-3"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-69" [label="xyz: 0.1 -0.02 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_Rigid-69" -> "94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-2"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-70" [label="xyz: -0.1 -0.02 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_Rigid-70" -> "94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-1"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_baseplate2bottom_mount" [label="xyz: -0.02 -0.1 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_baseplate2bottom_mount" -> "drive_motor_mount-v11-2"
+"drive_motor_mount-v11-2" -> "drive_motor_mount-v11-2_Rigid-2" [label="xyz: -0.01214 -0.016 -0.00761 \nrpy: 0 1.5708 -3.14159"]
+"drive_motor_mount-v11-2_Rigid-2" -> "ST3215_Servo_Motor-v1-2"
+"ST3215_Servo_Motor-v1-2" -> "ST3215_Servo_Motor-v1-2_Revolute-60" [label="xyz: 0.01025 -0.0352 -0.03275 \nrpy: 0 1.5708 1.5708"]
+"ST3215_Servo_Motor-v1-2_Revolute-60" -> "omni_wheel_mount-v5-2"
+"omni_wheel_mount-v5-2" -> "omni_wheel_mount-v5-2_Rigid-61" [label="xyz: 0 0 -0.007175 \nrpy: -1.5708 -0 0"]
+"omni_wheel_mount-v5-2_Rigid-61" -> "4-Omni-Directional-Wheel_Single_Body-v1-2"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_baseplate2left_mount" [label="xyz: -0.059282 0.0573205 0 \nrpy: 3.14159 -0 0"]
+"base_plate_layer1-v5_baseplate2left_mount" -> "drive_motor_mount-v11"
+"drive_motor_mount-v11" -> "drive_motor_mount-v11_Rigid-39" [label="xyz: 0.0199264 -0.00251355 -0.00761 \nrpy: 0 1.5708 -3.14159"]
+"drive_motor_mount-v11_Rigid-39" -> "ST3215_Servo_Motor-v1"
+"ST3215_Servo_Motor-v1" -> "ST3215_Servo_Motor-v1_Revolute-64" [label="xyz: 0.01025 -0.0107623 0.0468591 \nrpy: 0 1.5708 1.5708"]
+"ST3215_Servo_Motor-v1_Revolute-64" -> "omni_wheel_mount-v5"
+"omni_wheel_mount-v5" -> "omni_wheel_mount-v5_Rigid-65" [label="xyz: -0.00621373 0 0.0035875 \nrpy: -1.5708 5.55112e-17 4.93038e-32"]
+"omni_wheel_mount-v5_Rigid-65" -> "4-Omni-Directional-Wheel_Single_Body-v1"
+"base_plate_layer1-v5" -> "base_plate_layer1-v5_baseplate2right_mount" [label="xyz: 0.079282 0.0226795 0 \nrpy: 0 -0 0"]
+"base_plate_layer1-v5_baseplate2right_mount" -> "drive_motor_mount-v11-1"
+"drive_motor_mount-v11-1" -> "drive_motor_mount-v11-1_Rigid-35" [label="xyz: -0.0077864 -0.0185136 0.00761 \nrpy: 0 -1.5708 -7.40149e-17"]
+"drive_motor_mount-v11-1_Rigid-35" -> "ST3215_Servo_Motor-v1-1"
+"ST3215_Servo_Motor-v1-1" -> "ST3215_Servo_Motor-v1-1_Revolute-62" [label="xyz: 0.01025 0.0463623 -0.0148019 \nrpy: 0 1.5708 1.5708"]
+"ST3215_Servo_Motor-v1-1_Revolute-62" -> "omni_wheel_mount-v5-1"
+"omni_wheel_mount-v5-1" -> "omni_wheel_mount-v5-1_Rigid-63" [label="xyz: 0.00621373 0 0.0035875 \nrpy: -1.5708 5.55112e-17 0"]
+"omni_wheel_mount-v5-1_Rigid-63" -> "4-Omni-Directional-Wheel_Single_Body-v1-1"
+}
