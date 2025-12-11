@@ -20,5 +20,7 @@
 
   <export>
     <build_type>ament_python</build_type>
+    <!-- darren 12/10 - added this to set the mesh path which was causing the model to not visualize -->
+    <gazebo_ros gazebo_model_path="${prefix}/.."/> 
   </export>
 </package>

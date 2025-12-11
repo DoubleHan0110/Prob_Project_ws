@@ -27,7 +27,7 @@ def generate_launch_description():
     )
 
     # 机器人 URDF / Xacro 路径（改成你自己的文件名）
-    model_name = 'LeKiwi'                             #urdf文件名
+    model_name = 'LeKiwi_simplified'                             #urdf文件名
     default_model_path = PathJoinSubstitution(
         [desc_pkg, 'urdf', model_name + '.urdf']  
     )

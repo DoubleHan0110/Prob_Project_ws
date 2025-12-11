@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='utf-8'?>
+<robot name="LeKiwi">
+
+    <link name="base_footprint"/>
+
+    <joint name="base_footprint_to_base_link" type="fixed">
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    </joint>
+
+    <link name="base_link">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="5.0"/> <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+        </inertial>
+        <visual>
+             <geometry>
+                <mesh filename="package://model_description/meshes/base_plate_layer1-v5.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="grey"><color rgba="0.5 0.5 0.5 1"/></material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.05" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.3 0.3 0.15"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="base_plate_layer2-v3">
+        <visual>
+            <geometry><mesh filename="package://model_description/meshes/base_plate_layer2-v3.stl" scale="0.001 0.001 0.001"/></geometry>
+        </visual>
+    </link>
+    <joint name="base_plate_layer1-v5_Rigid-20" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_plate_layer2-v3"/>
+        <origin xyz="0 0 0.05" rpy="0 0 0"/> </joint>
+
+    <link name="Battery">
+        <visual>
+            <geometry><mesh filename="package://model_description/meshes/Battery---Battery-5.2-Ah-DC5521-Plug-v2.stl" scale="0.001 0.001 0.001"/></geometry>
+        </visual>
+    </link>
+    <joint name="battery_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="Battery"/>
+        <origin xyz="-0.04 -0.02 -0.01" rpy="3.14 0 0"/>
+    </joint>
+
+    <link name="Camera-Model-v3">
+        <visual>
+            <geometry><mesh filename="package://model_description/meshes/Camera-Model-v3.stl" scale="0.001 0.001 0.001"/></geometry>
+        </visual>
+    </link>
+    <joint name="camera_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="Camera-Model-v3"/>
+        <origin xyz="-0.014 0.006 0.038" rpy="3.14 -1.39 3.14"/>
+    </joint>
+
+    <link name="Fixed_Arm_Visuals">
+        <visual>
+             <geometry><mesh filename="package://model_description/meshes/SO_ARM100_08k_116_Square-v1.stl" scale="0.001 0.001 0.001"/></geometry>
+        </visual>
+    </link>
+    <joint name="arm_fix_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="Fixed_Arm_Visuals"/>
+        <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="wheel_1_link">
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+        <visual>
+            <geometry><mesh filename="package://model_description/meshes/4-Omni-Directional-Wheel_Single_Body-v1-2.stl" scale="0.001 0.001 0.001"/></geometry>
+            <origin xyz="0 0.015 0" rpy="1.57 0.26 0"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0.015 0" rpy="1.57 0 0"/>
+            <geometry><cylinder radius="0.03" length="0.02"/></geometry>
+        </collision>
+    </link>
+
+    <link name="wheel_2_link">
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+        <visual>
+            <geometry><mesh filename="package://model_description/meshes/4-Omni-Directional-Wheel_Single_Body-v1-1.stl" scale="0.001 0.001 0.001"/></geometry>
+            <origin xyz="0 0.015 0" rpy="1.57 0.26 0"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0.015 0" rpy="1.57 0 0"/>
+            <geometry><cylinder radius="0.03" length="0.02"/></geometry>
+        </collision>
+    </link>
+
+    <link name="wheel_3_link">
+        <inertial>
+            <mass value="0.5"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
+        <visual>
+            <geometry><mesh filename="package://model_description/meshes/4-Omni-Directional-Wheel_Single_Body-v1.stl" scale="0.001 0.001 0.001"/></geometry>
+            <origin xyz="0 0.015 0" rpy="1.57 0.26 0"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0.015 0" rpy="1.57 0 0"/>
+            <geometry><cylinder radius="0.03" length="0.02"/></geometry>
+        </collision>
+    </link>
+
+    <joint name="wheel_1_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_1_link"/>
+        <origin xyz="0.01 -0.035 -0.04" rpy="-1.57 1.57 0"/> <axis xyz="0 0 1"/> 
+    </joint>
+
+    <joint name="wheel_2_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_2_link"/>
+        <origin xyz="0.01 0.046 -0.01" rpy="-1.57 1.57 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <joint name="wheel_3_joint" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_3_link"/>
+        <origin xyz="0.01 -0.01 0.04" rpy="-1.57 1.57 0"/>
+        <axis xyz="0 0 1"/>
+    </joint>
+
+    <gazebo>
+        <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+            <commandTopic>cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <odometryRate>20.0</odometryRate>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+        </plugin>
+    </gazebo>
+
+    <gazebo reference="wheel_1_link">
+        <mu1>0.0</mu1> <mu2>0.0</mu2> <material>Gazebo/Black</material>
+    </gazebo>
+    <gazebo reference="wheel_2_link">
+        <mu1>0.0</mu1> <mu2>0.0</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
+    <gazebo reference="wheel_3_link">
+        <mu1>0.0</mu1> <mu2>0.0</mu2>
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+</robot>

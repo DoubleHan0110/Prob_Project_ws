@@ -1,0 +1,71 @@
+[0.531s] Invoking command in '/home/darren/Desktop/Prob_Project_ws/src/model_description': CONDA_PROMPT_MODIFIER=(ros_env) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/darren/Desktop/Prob_Project_ws/build/model_description/prefix_override:/home/darren/miniconda3/envs/ros_env/lib/python3.11/site-packages/colcon_core/task/python/colcon_distutils_commands:/home/darren/Desktop/Prob_Project_ws/install/model_description/lib/python3.11/site-packages:${PYTHONPATH} /home/darren/miniconda3/envs/ros_env/bin/python3.11 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/model_description build --build-base /home/darren/Desktop/Prob_Project_ws/build/model_description/build install --record /home/darren/Desktop/Prob_Project_ws/build/model_description/install.log --single-version-externally-managed install_data
+[0.765s] running egg_info
+[0.778s] writing ../../build/model_description/model_description.egg-info/PKG-INFO
+[0.778s] writing dependency_links to ../../build/model_description/model_description.egg-info/dependency_links.txt
+[0.779s] writing requirements to ../../build/model_description/model_description.egg-info/requires.txt
+[0.779s] writing top-level names to ../../build/model_description/model_description.egg-info/top_level.txt
+[0.807s] reading manifest file '../../build/model_description/model_description.egg-info/SOURCES.txt'
+[0.808s] writing manifest file '../../build/model_description/model_description.egg-info/SOURCES.txt'
+[0.809s] running build
+[0.809s] running build_py
+[0.809s] copying model_description/__init__.py -> /home/darren/Desktop/Prob_Project_ws/build/model_description/build/lib/model_description
+[0.809s] running install
+[0.814s] running install_lib
+[0.828s] running install_data
+[0.828s] copying resource/model_description -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/ament_index/resource_index/packages
+[0.828s] copying package.xml -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description
+[0.829s] copying launch/display.launch.py -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/launch
+[0.829s] copying urdf/LeKiwi.urdf -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/urdf
+[0.829s] copying urdf/fish_bot_test.urdf -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/urdf
+[0.829s] copying urdf/LeKiwi_simplified.urdf -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/urdf
+[0.830s] copying meshes/4-Omni-Directional-Wheel_Single_Body-v1-1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.849s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-3.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.849s] copying meshes/Bottom-V2-v3.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.850s] copying meshes/WaveShare_Mounting_Plate_01d-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.850s] copying meshes/Passive_Horn_01-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.850s] copying meshes/Wrist-Camera-Mount-v11.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.851s] copying meshes/base_plate_layer2-v3.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.851s] copying meshes/STS3215_03a-v1-4.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.852s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-5.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.852s] copying meshes/STS3215_03a-v1-1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.853s] copying meshes/drive_motor_mount-v11-2.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.853s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.853s] copying meshes/ST3215_Servo_Motor-v1-1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.854s] copying meshes/servo_controller_mount-v3.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.854s] copying meshes/STS3215_03a_Wrist_Roll-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.855s] copying meshes/omni_wheel_mount-v5-1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.856s] copying meshes/SO_ARM100_08k_Mirror-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.857s] copying meshes/Camera-Mount-v8.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.857s] copying meshes/Moving_Jaw_08d-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.858s] copying meshes/4-Omni-Directional-Wheel_Single_Body-v1-2.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.876s] copying meshes/SO_ARM100_08k_116_Square-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.877s] copying meshes/drive_motor_mount-v11-1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.877s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-2.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.877s] copying meshes/STS3215_03a-v1-3.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.878s] copying meshes/omni_wheel_mount-v5-2.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.879s] copying meshes/Wrist_Roll_Pitch_08i-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.880s] copying meshes/STS3215_03a-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.880s] copying meshes/Top-V2-v2.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.881s] copying meshes/Camera-Model-v3.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.882s] copying meshes/SO_ARM100_08k_Asym_Mirror_Clip-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.882s] copying meshes/lipo_battery_mount-v3.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.882s] copying meshes/Rotation_Pitch_08i-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.883s] copying meshes/omni_wheel_mount-v5.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.884s] copying meshes/Wrist_Roll_08c-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.884s] copying meshes/STS3215_03a-v1-2.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.885s] copying meshes/drive_motor_mount-v11.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.885s] copying meshes/base_plate_layer1-v5.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.886s] copying meshes/4-Omni-Directional-Wheel_Single_Body-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.904s] copying meshes/ST3215_Servo_Motor-v1-2.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.905s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.906s] copying meshes/94868A713_NO-THREADS_Female-Threaded-Hex-Standoff-4.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.906s] copying meshes/Base_08q-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.907s] copying meshes/Camera-Model-v3-1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.908s] copying meshes/Battery---Battery-5.2-Ah-DC5521-Plug-v2.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.908s] copying meshes/ST3215_Servo_Motor-v1.stl -> /home/darren/Desktop/Prob_Project_ws/install/model_description/share/model_description/meshes
+[0.910s] running install_egg_info
+[0.923s] removing '/home/darren/Desktop/Prob_Project_ws/install/model_description/lib/python3.11/site-packages/model_description-0.0.0-py3.11.egg-info' (and everything under it)
+[0.923s] Copying ../../build/model_description/model_description.egg-info to /home/darren/Desktop/Prob_Project_ws/install/model_description/lib/python3.11/site-packages/model_description-0.0.0-py3.11.egg-info
+[0.924s] running install_scripts
+[0.950s] writing list of installed files to '/home/darren/Desktop/Prob_Project_ws/build/model_description/install.log'
+[0.977s] Invoked command in '/home/darren/Desktop/Prob_Project_ws/src/model_description' returned '0': CONDA_PROMPT_MODIFIER=(ros_env) DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/darren/Desktop/Prob_Project_ws/build/model_description/prefix_override:/home/darren/miniconda3/envs/ros_env/lib/python3.11/site-packages/colcon_core/task/python/colcon_distutils_commands:/home/darren/Desktop/Prob_Project_ws/install/model_description/lib/python3.11/site-packages:${PYTHONPATH} /home/darren/miniconda3/envs/ros_env/bin/python3.11 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/model_description build --build-base /home/darren/Desktop/Prob_Project_ws/build/model_description/build install --record /home/darren/Desktop/Prob_Project_ws/build/model_description/install.log --single-version-externally-managed install_data
