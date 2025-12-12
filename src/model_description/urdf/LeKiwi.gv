@@ -1,6 +1,5 @@
 digraph G {
 node [shape=box];
-"base_link" [label="base_link"];
 "base_plate_layer1-v5" [label="base_plate_layer1-v5"];
 "servo_controller_mount-v3" [label="servo_controller_mount-v3"];
 "lipo_battery_mount-v3" [label="lipo_battery_mount-v3"];
@@ -47,8 +46,6 @@ node [shape=box];
 "omni_wheel_mount-v5-1" [label="omni_wheel_mount-v5-1"];
 "4-Omni-Directional-Wheel_Single_Body-v1-1" [label="4-Omni-Directional-Wheel_Single_Body-v1-1"];
 node [shape=ellipse, color=blue, fontcolor=blue];
-"base_link" -> "base_link_to_chassis" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
-"base_link_to_chassis" -> "base_plate_layer1-v5"
 "base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-15" [label="xyz: 0 0.06 0 \nrpy: 0 -0 0"]
 "base_plate_layer1-v5_Rigid-15" -> "servo_controller_mount-v3"
 "base_plate_layer1-v5" -> "base_plate_layer1-v5_Rigid-18" [label="xyz: -0.04 -0.02 0 \nrpy: 3.14159 -0 0"]
@@ -83,7 +80,7 @@ node [shape=ellipse, color=blue, fontcolor=blue];
 "STS3215_03a-v1-2_Revolute-51" -> "SO_ARM100_08k_Mirror-v1"
 "SO_ARM100_08k_Mirror-v1" -> "SO_ARM100_08k_Mirror-v1_Rigid-52" [label="xyz: -0.0361 0.0988506 0.0331184 \nrpy: -3.14159 5.91646e-31 3.88938e-62"]
 "SO_ARM100_08k_Mirror-v1_Rigid-52" -> "STS3215_03a-v1-3"
-"STS3215_03a-v1-3" -> "STS3215_03a-v1-3_Revolute-53" [label="xyz: 0.0346 -0.0340816 0.00439862 \nrpy: 3.14159 9.86076e-32 -9.50316e-47"]
+"STS3215_03a-v1-3" -> "STS3215_03a-v1-3_Revolute-53" [label="xyz: 0.0346 -0.0340816 0.00439862 \nrpy: -1.7 9.86076e-32 -9.85288e-47"]
 "STS3215_03a-v1-3_Revolute-53" -> "Wrist_Roll_Pitch_08i-v1"
 "Wrist_Roll_Pitch_08i-v1" -> "Wrist_Roll_Pitch_08i-v1_Rigid-54" [label="xyz: 0.0089 0.0339283 -0.0485059 \nrpy: -3.14159 -9.86076e-32 0"]
 "Wrist_Roll_Pitch_08i-v1_Rigid-54" -> "STS3215_03a_Wrist_Roll-v1"

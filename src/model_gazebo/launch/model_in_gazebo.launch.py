@@ -10,26 +10,32 @@ from launch.substitutions import Command
 import os
 
 def generate_launch_description():
-    # ====== 路径设置 ======
-    # 找到 gazebo_ros 自带的 gazebo.launch.py
+    # ====== path settings ======
     gazebo_pkg = FindPackageShare('gazebo_ros').find('gazebo_ros')
-    world_pkg = FindPackageShare('model_gazebo').find('model_gazebo')
+    model_gazebo_pkg = FindPackageShare('model_gazebo').find('model_gazebo')
     
     gazebo_launch = PathJoinSubstitution(
         [gazebo_pkg, 'launch', 'gazebo.launch.py']
     )
 
-    # 找到你自己的 model_description 包
-    desc_pkg = FindPackageShare('model_description').find('model_description')
-
+    description_pkg = FindPackageShare('model_description').find('model_description')
+    # default_world = PathJoinSubstitution(
+    #     [model_gazebo_pkg, 'worlds', 'turtlebot3_house.world']
+    # )
     default_world = PathJoinSubstitution(
-        [world_pkg, 'worlds', 'turtlebot3_house.world']
+        [gazebo_pkg, 'worlds', 'empty.world']
+    )
+
+    controller_config = os.path.join(
+        model_gazebo_pkg,
+        'config',
+        'controllers.yaml'
     )
 
     # 机器人 URDF / Xacro 路径（改成你自己的文件名）
     model_name = 'LeKiwi_simplified'                             #urdf文件名
     default_model_path = PathJoinSubstitution(
-        [desc_pkg, 'urdf', model_name + '.urdf']  
+        [description_pkg, 'urdf', model_name + '.urdf']  
     )
 
     # ====== 声明 launch 参数（可选） ======
@@ -79,10 +85,39 @@ def generate_launch_description():
         output='screen'
     )
 
+    # 1. 启动 Joint State Broadcaster
+    joint_state_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+    )
+
+    # 3. 启动 Omni Wheel Controller
+    omni_wheel_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["omni_wheel_controller", "--controller-manager", "/controller_manager"],
+    )
+
+    vel_cmd_trans_to_wheel = Node(
+        package='model_gazebo',
+        executable='vel_cmd_to_wheel',
+        name='vel_cmd_to_wheel',
+        output='screen',
+        # change the default para here
+        parameters=[
+            {'wheel_radius': 0.1},
+            {'wheel_separation': 0.132}
+        ]
+    )
+
     return LaunchDescription([
         world_arg,
         model_arg,
         gazebo,
         rsp_node,
-        spawn_entity
+        spawn_entity,
+        joint_state_broadcaster_spawner,
+        omni_wheel_controller_spawner,
+        vel_cmd_trans_to_wheel,
     ])

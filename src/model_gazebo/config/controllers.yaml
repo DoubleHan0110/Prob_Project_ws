@@ -1,0 +1,19 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    # pub tf
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    # topic for wheel velocity
+    omni_wheel_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+omni_wheel_controller:
+  ros__parameters:
+    joints:
+      - ST3215_Servo_Motor-v1-2_Revolute-60
+      - ST3215_Servo_Motor-v1-1_Revolute-62
+      - ST3215_Servo_Motor-v1_Revolute-64
+      

@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <robot name="LeKiwi">
-  <link name="base_link">
+  <!-- <link name="base_link">
         </link>
   <joint name="base_link_to_chassis" type="fixed">
     <parent link="base_link"/>
     <child link="base_plate_layer1-v5"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
+  </joint> -->
   <link name="base_plate_layer1-v5">
     <inertial>
       <origin xyz="-4.730687660675253e-15 -2.7155537377808555e-05 -0.0035000000000000005" rpy="0.0 0.0 0.0"/>
@@ -866,4 +866,77 @@
     <parent link="Wrist-Camera-Mount-v11"/>
     <child link="Camera-Model-v3-1"/>
   </joint>
+
+    <!-- define the ros2 interface -->
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    
+    <!-- Wheel 1 -->
+    <joint name="ST3215_Servo_Motor-v1-2_Revolute-60">
+      <command_interface name="velocity">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="position"/>
+    </joint>
+
+    <!-- Wheel 2 -->
+    <joint name="ST3215_Servo_Motor-v1-1_Revolute-62">
+      <command_interface name="velocity">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="position"/>
+    </joint>
+
+    <!-- Wheel 3 -->
+    <joint name="ST3215_Servo_Motor-v1_Revolute-64">
+      <command_interface name="velocity">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="velocity"/>
+      <state_interface name="position"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find model_gazebo)/config/controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+    <!-- Wheel 1 -->
+  <gazebo reference="4-Omni-Directional-Wheel_Single_Body-v1-2">
+    <mu1>0.001</mu1> 
+    <mu2>1.0</mu2>   
+    <fdir1>0 0 1</fdir1> 
+    <kp>500000.0</kp> 
+    <kd>10.0</kd>    
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <!-- Wheel 2 -->
+  <gazebo reference="4-Omni-Directional-Wheel_Single_Body-v1-1">
+    <mu1>0.001</mu1>
+    <mu2>1.0</mu2>
+    <fdir1>0 0 1</fdir1>
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <!-- Wheel 3 -->
+  <gazebo reference="4-Omni-Directional-Wheel_Single_Body-v1">
+    <mu1>0.001</mu1>
+    <mu2>1.0</mu2>
+    <fdir1>0 0 1</fdir1>
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+  </gazebo>
 </robot>
