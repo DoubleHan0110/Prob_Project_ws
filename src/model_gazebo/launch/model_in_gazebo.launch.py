@@ -20,7 +20,7 @@ def generate_launch_description():
 
     description_pkg = FindPackageShare('model_description').find('model_description')
     default_world = PathJoinSubstitution(
-        [model_gazebo_pkg, 'worlds', 'turtlebot3_house.world']
+        [model_gazebo_pkg, 'worlds', 'empty_world.world']
     )
     # default_world = PathJoinSubstitution(
     #     [gazebo_pkg, 'worlds', 'empty.world']
