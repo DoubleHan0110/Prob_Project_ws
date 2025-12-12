@@ -19,12 +19,12 @@ def generate_launch_description():
     )
 
     description_pkg = FindPackageShare('model_description').find('model_description')
-    # default_world = PathJoinSubstitution(
-    #     [model_gazebo_pkg, 'worlds', 'turtlebot3_house.world']
-    # )
     default_world = PathJoinSubstitution(
-        [gazebo_pkg, 'worlds', 'empty.world']
+        [model_gazebo_pkg, 'worlds', 'turtlebot3_house.world']
     )
+    # default_world = PathJoinSubstitution(
+    #     [gazebo_pkg, 'worlds', 'empty.world']
+    # )
 
     controller_config = os.path.join(
         model_gazebo_pkg,

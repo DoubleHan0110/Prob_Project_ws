@@ -43,6 +43,15 @@
       </ode>
     </physics>
 
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros>
+        <namespace>/</namespace>
+        <remapping>model_states:=gazebo/model_states</remapping>
+        <remapping>link_states:=gazebo/link_states</remapping>
+      </ros>
+      <update_rate>50.0</update_rate>
+    </plugin>
+
     <model name="turtlebot3_house">
       <static>1</static>
       <include>
@@ -51,4 +60,5 @@
     </model>
 
   </world>
+
 </sdf>
