@@ -665,6 +665,7 @@
     <parent link="ST3215_Servo_Motor-v1-2"/>
     <child link="omni_wheel_mount-v5-2"/>
     <axis xyz="0.0 0.0 -1.0"/>
+    <limit effort="5.0" velocity="20.0"/>
   </joint>
   <joint name="base_plate_layer1-v5_baseplate2right_mount" type="fixed">
     <origin xyz="0.07928203 0.022679490000000004 0.0" rpy="0.0 -0.0 0.0"/>
@@ -681,6 +682,7 @@
     <parent link="ST3215_Servo_Motor-v1-1"/>
     <child link="omni_wheel_mount-v5-1"/>
     <axis xyz="0.866025 1.0674582272562919e-32 0.5"/>
+    <limit effort="5.0" velocity="20.0"/>
   </joint>
   <joint name="omni_wheel_mount-v5-1_Rigid-63" type="fixed">
     <origin xyz="0.0062137300000000015 0.0 0.0035875000000000056" rpy="-1.5707963267948966 5.551115123125765e-17 -1.8816263559048997e-48"/>
@@ -702,6 +704,7 @@
     <parent link="ST3215_Servo_Motor-v1"/>
     <child link="omni_wheel_mount-v5"/>
     <axis xyz="-0.866025 -2.0578792567370943e-32 0.5"/>
+    <limit effort="5.0" velocity="20.0"/>
   </joint>
   <joint name="omni_wheel_mount-v5_Rigid-65" type="fixed">
     <origin xyz="-0.0062137300000000015 0.0 0.003587499999999997" rpy="-1.5707963267948966 5.551115123125802e-17 4.930380657631324e-32"/>

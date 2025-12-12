@@ -17,3 +17,9 @@ omni_wheel_controller:
       - ST3215_Servo_Motor-v1-1_Revolute-62
       - ST3215_Servo_Motor-v1_Revolute-64
       
+gazebo_ros2_control:
+  ros__parameters:
+    gains:
+      ST3215_Servo_Motor-v1-2_Revolute-60: {p: 1.0, i: 0.0, d: 0.5}
+      ST3215_Servo_Motor-v1-1_Revolute-62: {p: 1.0, i: 0.0, d: 0.5}
+      ST3215_Servo_Motor-v1_Revolute-64: {p: 1.0, i: 0.0, d: 0.5}
