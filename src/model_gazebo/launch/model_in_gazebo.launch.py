@@ -106,7 +106,7 @@ def generate_launch_description():
         output='screen',
         # change the default para here
         parameters=[
-            {'wheel_radius': 0.1},
+            {'wheel_radius': 0.05},
             {'wheel_separation': 0.132}
         ]
     )
