@@ -9,7 +9,7 @@ def generate_launch_description():
     pkg_share = FindPackageShare('model_description').find('model_description')
 
     default_model_path = PathJoinSubstitution(
-        [pkg_share, 'urdf', 'LeKiwi.urdf']   # 这里选你想看的那个 urdf
+        [pkg_share, 'urdf', 'LeKiwi_simplified.urdf']   # 这里选你想看的那个 urdf
     )
 
     model_arg = DeclareLaunchArgument(
@@ -18,7 +18,6 @@ def generate_launch_description():
         description='Path to URDF/Xacro file'
     )
 
-    # 用 xacro 处理（普通 urdf 也能直接通过）
     robot_description_content = Command([
         'xacro ', LaunchConfiguration('model')
     ])
