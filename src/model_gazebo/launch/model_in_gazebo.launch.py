@@ -110,6 +110,13 @@ def generate_launch_description():
         ]
     )
 
+    ground_truth_pub_node = Node(
+        package='model_gazebo',
+        executable='ground_truth_pub',
+        name='ground_truth_pub',
+        output='screen'
+    )
+
     ukf_node = Node(
         package='model_gazebo',
         executable='ukf_odometry',
@@ -126,5 +133,6 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         omni_wheel_controller_spawner,
         vel_cmd_trans_to_wheel,
+        ground_truth_pub_node,
         ukf_node,
     ])

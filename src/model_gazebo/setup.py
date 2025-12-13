@@ -30,6 +30,7 @@ setup(
         'console_scripts': [
             'vel_cmd_to_wheel = model_gazebo.vel_cmd_to_wheel:main',
             'ukf_odometry = model_gazebo.ukf_odometry:main',
+            'ground_truth_pub = model_gazebo.ground_truth_pub:main',
         ],
     },
 )
