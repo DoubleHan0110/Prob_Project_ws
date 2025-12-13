@@ -147,7 +147,7 @@ For our robot in Gazebo, the environment is perfectly flat and we assume that th
 
 ### 1. State Vector ($\mathbf{x}$) and Input Vector ($\mathbf{u}$)
 The state vector ($6 \times 1$) tracks global pose and body-frame velocities. The control input comes strictly from the **IMU**.
-*(Note: $a_x, a_y$ are proper accelerations in the Body Frame).*
+(Note: $a_x, a_y$ are proper accelerations in the Body Frame).
 
 $$
 \mathbf{x} = \begin{bmatrix}
@@ -158,23 +158,20 @@ v_x \\
 v_y \\
 \omega
 \end{bmatrix}
-\begin{aligned}
-&\leftarrow \text{Global X Position (m)} \\
-&\leftarrow \text{Global Y Position (m)} \\
-&\leftarrow \text{Global Yaw (rad)} \\
-&\leftarrow \text{Body-frame Velocity X (m/s)} \\
-&\leftarrow \text{Body-frame Velocity Y (m/s)} \\
-&\leftarrow \text{Angular Velocity (rad/s)}
-\end{aligned}
-
 \quad\quad, \quad \quad
-
 \mathbf{u} = \begin{bmatrix}
 a_x \\
 a_y \\
 \omega_{gyro}
 \end{bmatrix}
 $$
+
+- $p_x$: Global X Position (m)  
+- $p_y$: Global Y Position (m)  
+- $\theta$: Global Yaw (rad)  
+- $v_x$: Body-frame Velocity X (m/s)  
+- $v_y$: Body-frame Velocity Y (m/s)  
+- $\omega$: Angular Velocity (rad/s)
 
 $\theta$ is defined to be counterclockwise-positive from the +x axis.
 
@@ -214,8 +211,8 @@ $$
 $$
 h(\mathbf{x}) = \frac{1}{r}\begin{bmatrix}
 0 & 0 & 0 & -1 & 0 & L_0 \\
-0 & 0 & 0 & \sin\!\left(\frac{\pi}{6}\right) & -\cos\!\left(\frac{\pi}{6}\right) & L_0 \\
-0 & 0 & 0 & \sin\!\left(\frac{\pi}{6}\right) & \cos\!\left(\frac{\pi}{6}\right) & L_0
+0 & 0 & 0 & \sin{\frac{\pi}{6}} & -\cos{\frac{\pi}{6}} & L_0 \\
+0 & 0 & 0 & \sin{\frac{\pi}{6}} & \cos{\frac{\pi}{6}} & L_0
 \end{bmatrix}
 \begin{bmatrix} p_x \\ p_y \\ \theta \\ v_x \\ v_y \\ \omega \end{bmatrix}
 $$
