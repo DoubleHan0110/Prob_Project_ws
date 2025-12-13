@@ -77,10 +77,9 @@ def generate_launch_description():
         arguments=[
             '-entity', model_name,
             '-topic', 'robot_description',
-            # '-file', default_model_path,
-            '-x', '0.0',
-            '-y', '0.0',
-            '-z', '0.2',
+            # '-x', '0.0',
+            # '-y', '0.0',
+            # '-z', '0.2',
         ],
         output='screen'
     )
@@ -107,7 +106,7 @@ def generate_launch_description():
         # change the default para here
         parameters=[
             {'wheel_radius': 0.05},
-            {'wheel_separation': 0.132}
+            {'wheel_separation': 0.12869}
         ]
     )
 

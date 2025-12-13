@@ -1,12 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <robot name="LeKiwi">
-  <!-- <link name="base_link">
+  <link name="base_link">
         </link>
   <joint name="base_link_to_chassis" type="fixed">
     <parent link="base_link"/>
     <child link="base_plate_layer1-v5"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint> -->
+  </joint>
+  
   <link name="base_plate_layer1-v5">
     <inertial>
       <origin xyz="-4.730687660675253e-15 -2.7155537377808555e-05 -0.0035000000000000005" rpy="0.0 0.0 0.0"/>
@@ -398,6 +399,9 @@
       <geometry>
         <mesh filename="package://model_description/meshes/Camera-Model-v3.stl" scale="0.001 0.001 0.001"/>
       </geometry>
+      <material name = "green">
+        <color rgba="0 1 0 1"/>
+      </material>
     </visual>
     <collision name="Camera-Model-v3_collision">
       <origin xyz="-0.01600892660245488 0.0024310699968045314 -0.011393166874206155" rpy="1.7453292519943302 1.3962634015954638 -3.141592653589793"/>
