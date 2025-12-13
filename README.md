@@ -139,29 +139,96 @@ TODO: Add simulation screenshots or video links here
 
 ## Motion Model Derivation
 
-<!-- 
-TODO: Add the full motion model derivation here. Suggested content:
+For our robot in Gazebo, the environment is perfectly flat and we assume that the only degrees of freedom of interest are planar translation and rotation about the vertical axis.
 
-### Coordinate Frames
-- World frame vs body frame
-- Wheel placement angles (α₁ = 180°, α₂ = -60°, α₃ = 60°)
+<div align="center">
+<img src="diagram.png" alt="robot schematic" width="50%">
+</div>
 
-### Forward Kinematics
-Given wheel angular velocities (ω₁, ω₂, ω₃), compute body velocity (vₓ, vᵧ, ω):
-- Matrix formulation
-- Pseudoinverse solution (over-constrained system)
+### 1. State Vector ($\mathbf{x}$) and Input Vector ($\mathbf{u}$)
+The state vector ($6 \times 1$) tracks global pose and body-frame velocities. The control input comes strictly from the **IMU**.
+*(Note: $a_x, a_y$ are proper accelerations in the Body Frame).*
 
-### State Equations
-- State vector: [x, y, θ]ᵀ or [x, y, θ, vₓ, vᵧ, ω]ᵀ
-- Discrete-time state transition equations
-- Process noise model
+$$
+\mathbf{x} = \begin{bmatrix}
+p_x \\
+p_y \\
+\theta \\
+v_x \\
+v_y \\
+\omega
+\end{bmatrix}
+\begin{aligned}
+&\leftarrow \text{Global X Position (m)} \\
+&\leftarrow \text{Global Y Position (m)} \\
+&\leftarrow \text{Global Yaw (rad)} \\
+&\leftarrow \text{Body-frame Velocity X (m/s)} \\
+&\leftarrow \text{Body-frame Velocity Y (m/s)} \\
+&\leftarrow \text{Angular Velocity (rad/s)}
+\end{aligned}
 
-### Figures
-- Diagram showing wheel orientations and velocity vectors
-- Coordinate frame definitions
--->
+\quad\quad, \quad \quad
 
-*Section to be completed*
+\mathbf{u} = \begin{bmatrix}
+a_x \\
+a_y \\
+\omega_{gyro}
+\end{bmatrix}
+$$
+
+$\theta$ is defined to be counterclockwise-positive from the +x axis.
+
+### 2. Motion Model ($f$)
+This is the system dynamics function $\mathbf{x}_{k+1} = f(\mathbf{x}_k, \mathbf{u}_k)$.
+We integrate the accelerometer inputs to update linear velocity, and we use the gyro input to drive the angular velocity state directly.
+
+$$
+\mathbf{x}_{k+1} = \begin{bmatrix}
+p_{x, k} + (v_{x, k} \cos \theta_k - v_{y, k} \sin \theta_k) \Delta t \\
+p_{y, k} + (v_{x, k} \sin \theta_k + v_{y, k} \cos \theta_k) \Delta t \\
+\theta_k + \left( \frac{\omega_k + \omega_{gyro}}{2} \right) \Delta t \\
+v_{x, k} + a_x \Delta t \\
+v_{y, k} + a_y \Delta t \\
+\omega_{gyro}
+\end{bmatrix}
+$$
+
+### 3. Measurement model ($z$)
+The measurement comes strictly from the **Wheel Encoders**.
+*(Note: $r$ is each wheel radius)*
+
+$$
+\mathbf{z} = \begin{bmatrix}
+\omega_1 \\
+\omega_2 \\
+\omega_3
+\end{bmatrix}
+$$
+
+The function $\hat{\mathbf{z}} = h(\mathbf{x})$ maps the current predicted state to the expected sensor readings using the Forward Kinematics matrix $J$.
+
+$$
+h(\mathbf{x}) = \frac{1}{r} J \cdot \begin{bmatrix} p_x \\ p_y \\ \theta \\ v_x \\ v_y \\ \omega \end{bmatrix}
+$$
+
+$$
+h(\mathbf{x}) = \frac{1}{r}\begin{bmatrix}
+0 & 0 & 0 & -1 & 0 & L_0 \\
+0 & 0 & 0 & \sin\!\left(\frac{\pi}{6}\right) & -\cos\!\left(\frac{\pi}{6}\right) & L_0 \\
+0 & 0 & 0 & \sin\!\left(\frac{\pi}{6}\right) & \cos\!\left(\frac{\pi}{6}\right) & L_0
+\end{bmatrix}
+\begin{bmatrix} p_x \\ p_y \\ \theta \\ v_x \\ v_y \\ \omega \end{bmatrix}
+$$
+
+$$
+h(\mathbf{x}) = \frac{1}{r} \begin{bmatrix}
+-v_x + L_0 \omega \\
+0.5 v_x - \frac{\sqrt{3}}{2} v_y + L_0 \omega \\
+0.5 v_x + \frac{\sqrt{3}}{2} v_y + L_0 \omega
+\end{bmatrix}
+$$
+
+The measurement model is actually linear w.r.t the state. This means we won't need to sample from it to build a gaussian for the UKF, we can directly combine it with the prediction and measurement uncertainties (in measurement space) to build the Kalman Gain.
 
 ---
 
