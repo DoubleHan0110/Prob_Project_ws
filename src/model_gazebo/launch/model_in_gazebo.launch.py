@@ -111,6 +111,13 @@ def generate_launch_description():
         ]
     )
 
+    ukf_node = Node(
+        package='model_gazebo',
+        executable='ukf_odometry',
+        name='ukf_odometry',
+        output='screen'
+    )
+
     return LaunchDescription([
         world_arg,
         model_arg,
@@ -120,4 +127,5 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         omni_wheel_controller_spawner,
         vel_cmd_trans_to_wheel,
+        ukf_node,
     ])

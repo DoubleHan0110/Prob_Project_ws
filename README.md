@@ -192,7 +192,7 @@ $$
 
 ### 3. Measurement model ($z$)
 The measurement comes strictly from the **Wheel Encoders**.
-*(Note: $r$ is each wheel radius)*
+(Note: $r$ is each wheel radius)
 
 $$
 \mathbf{z} = \begin{bmatrix}
@@ -205,7 +205,15 @@ $$
 The function $\hat{\mathbf{z}} = h(\mathbf{x})$ maps the current predicted state to the expected sensor readings using the Forward Kinematics matrix $J$.
 
 $$
-h(\mathbf{x}) = \frac{1}{r} J \cdot \begin{bmatrix} p_x \\ p_y \\ \theta \\ v_x \\ v_y \\ \omega \end{bmatrix}
+h(\mathbf{x}) = \frac{1}{r} J \cdot
+\begin{bmatrix}
+p_x \\
+p_y \\
+\theta \\
+v_x \\
+v_y \\
+\omega
+\end{bmatrix}
 $$
 
 $$
@@ -214,7 +222,14 @@ h(\mathbf{x}) = \frac{1}{r}\begin{bmatrix}
 0 & 0 & 0 & \sin{\frac{\pi}{6}} & -\cos{\frac{\pi}{6}} & L_0 \\
 0 & 0 & 0 & \sin{\frac{\pi}{6}} & \cos{\frac{\pi}{6}} & L_0
 \end{bmatrix}
-\begin{bmatrix} p_x \\ p_y \\ \theta \\ v_x \\ v_y \\ \omega \end{bmatrix}
+\begin{bmatrix}
+p_x \\
+p_y \\
+\theta \\
+v_x \\
+v_y \\
+\omega
+\end{bmatrix}
 $$
 
 $$

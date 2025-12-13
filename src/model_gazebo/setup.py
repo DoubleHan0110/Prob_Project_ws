@@ -29,6 +29,7 @@ setup(
     entry_points={
         'console_scripts': [
             'vel_cmd_to_wheel = model_gazebo.vel_cmd_to_wheel:main',
+            'ukf_odometry = model_gazebo.ukf_odometry:main',
         ],
     },
 )
