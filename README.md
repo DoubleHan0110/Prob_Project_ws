@@ -218,9 +218,9 @@ $$
 
 $$
 h(\mathbf{x}) = \frac{1}{r}\begin{bmatrix}
-0 & 0 & 0 & -1 & 0 & L_0 \\
-0 & 0 & 0 & \sin{\frac{\pi}{6}} & -\cos{\frac{\pi}{6}} & L_0 \\
-0 & 0 & 0 & \sin{\frac{\pi}{6}} & \cos{\frac{\pi}{6}} & L_0
+0 & 0 & 0 & -1 & 0 & -L_0 \\
+0 & 0 & 0 & \sin{\frac{\pi}{6}} & -\cos{\frac{\pi}{6}} & -L_0 \\
+0 & 0 & 0 & \sin{\frac{\pi}{6}} & \cos{\frac{\pi}{6}} & -L_0
 \end{bmatrix}
 \begin{bmatrix}
 p_x \\
@@ -235,8 +235,8 @@ $$
 $$
 h(\mathbf{x}) = \frac{1}{r} \begin{bmatrix}
 -v_x + L_0 \omega \\
-0.5 v_x - \frac{\sqrt{3}}{2} v_y + L_0 \omega \\
-0.5 v_x + \frac{\sqrt{3}}{2} v_y + L_0 \omega
+0.5 v_x - \frac{\sqrt{3}}{2} v_y - L_0 \omega \\
+0.5 v_x + \frac{\sqrt{3}}{2} v_y - L_0 \omega
 \end{bmatrix}
 $$
 

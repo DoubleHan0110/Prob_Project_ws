@@ -28,9 +28,9 @@ class UkfOdometry(Node):
         L0 = 0.12869  # wheelbase length parameter
 
         self.C_matrix = (1/r) * np.array([
-            [0, 0, 0, -1, 0, L0],
-            [0, 0, 0, np.sin(np.pi/6), -np.cos(np.pi/6), L0],
-            [0, 0, 0, np.sin(np.pi/6), np.cos(np.pi/6), L0]
+            [0, 0, 0, -1, 0, -L0],
+            [0, 0, 0, np.sin(np.pi/6), -np.cos(np.pi/6), -L0],
+            [0, 0, 0, np.sin(np.pi/6), np.cos(np.pi/6), -L0]
         ])
 
         self.imu_sub = self.create_subscription(Imu, '/imu', self.imu_callback, 10)
