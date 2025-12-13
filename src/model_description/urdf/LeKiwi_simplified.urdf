@@ -922,7 +922,7 @@
 
     <!-- Wheel 1 -->
   <gazebo reference="4-Omni-Directional-Wheel_Single_Body-v1-2">
-    <mu1>0.001</mu1> 
+    <mu1>0.1</mu1> 
     <mu2>1.0</mu2>   
     <fdir1>0 0 1</fdir1> 
     <kp>500000.0</kp> 
@@ -932,7 +932,7 @@
 
   <!-- Wheel 2 -->
   <gazebo reference="4-Omni-Directional-Wheel_Single_Body-v1-1">
-    <mu1>0.001</mu1>
+    <mu1>0.1</mu1>
     <mu2>1.0</mu2>
     <fdir1>0 0 1</fdir1>
     <kp>500000.0</kp>
@@ -942,7 +942,7 @@
 
   <!-- Wheel 3 -->
   <gazebo reference="4-Omni-Directional-Wheel_Single_Body-v1">
-    <mu1>0.001</mu1>
+    <mu1>0.1</mu1>
     <mu2>1.0</mu2>
     <fdir1>0 0 1</fdir1>
     <kp>500000.0</kp>
