@@ -25,7 +25,7 @@ class UkfOdometry(Node):
         self.kappa = 0.0
 
         r = 0.05  # wheel radius
-        L0 = 0.12869  # wheelbase length parameter
+        L0 = 0.149  # wheelbase length parameter
 
         self.C_matrix = (1/r) * np.array([
             [0, 0, 0, -1, 0, -L0],
@@ -160,7 +160,7 @@ class UkfOdometry(Node):
         pose_cov[7] = self.state_cov[1, 1]    # y variance
         pose_cov[35] = self.state_cov[2, 2]   # theta variance
         pose_cov[1] = self.state_cov[0, 1]    # x-y covariance
-        pose_cov[6] = self.state_cov[1, 0]    # y-x covariance
+        pose_cov[6] = self.state_cov[1, 0]    # y-x covariance   
         odom_msg.pose.covariance = pose_cov.tolist()
         
         # Twist: [vx, vy, omega] from state (in body frame)

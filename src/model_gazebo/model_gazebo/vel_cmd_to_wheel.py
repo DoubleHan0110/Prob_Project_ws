@@ -11,7 +11,7 @@ class VelCmdToWheel(Node):
         # wheel radius
         self.declare_parameter('wheel_radius', 0.05) 
         # distance between wheel center and robot base center
-        self.declare_parameter('wheel_separation', 0.12869) 
+        self.declare_parameter('wheel_separation', 0.149) 
 
         self.wheel_radius = self.get_parameter('wheel_radius').value
         self.Length = self.get_parameter('wheel_separation').value
