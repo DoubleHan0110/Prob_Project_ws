@@ -48,8 +48,6 @@ src/
 │   ├── urdf/
 │   │   └── LeKiwi_simplified.urdf
 │   ├── meshes/
-│   └── launch/
-│       └── display.launch.py
 │
 └── model_gazebo/               # Gazebo simulation & control
     ├── launch/
@@ -57,7 +55,9 @@ src/
     ├── config/
     │   └── controllers.yaml
     ├── model_gazebo/
-    │   └── vel_cmd_to_wheel.py     # Inverse kinematics node
+    │   └── vel_cmd_to_wheel.py     # Inverse kinematics and low level controller node
+    |   └── ukf_odometry.py    # ukf odometry implementation
+    |   └── ground_truth_pub.py     
     └── worlds/
 ```
 
@@ -65,7 +65,7 @@ src/
 
 ## Simulation Environment Setup
 
-Getting an omni-wheel robot to drive correctly in Gazebo required substantial integration work. This section documents the effort involved.
+Getting an omni-wheel robot to simulate correctly in Gazebo required substantial integration work. This section documents the effort involved.
 
 ### URDF Configuration
 
@@ -246,35 +246,12 @@ The measurement model is actually linear w.r.t the state. This means we won't ne
 
 ## UKF Odometry Implementation
 
-<!--
-TODO: Document the UKF implementation. Suggested content:
+Implements a hybrid **Unscented Kalman Filter (Prediction)** and **Linear Kalman Filter (Correction)** for 3-wheel omnidirectional state estimation ($x \in \mathbb{R}^6$: Pose + Twist).
 
-### State Vector
-- What states are estimated?
-- Why UKF over EKF? (non-linear process/measurement models)
+* **Prediction (IMU):** Propagates nonlinear dynamics $x_{k+1} = g(x_k, u_{imu}, \Delta t)$ using the Unscented Transform to handle process noise.
+* **Correction (Encoders):** Performs standard linear updates via observation model $z = C\mathbf{x}$ using wheel velocities from `/joint_states`.
+* **Interfaces:** Subscribes to `/imu`, `/joint_states`; publishes `/ukf_odometry` and broadcasts `odom` $\to$ `base_link` TF.
 
-### Process Model
-- How wheel encoder readings predict the next state
-- Process noise covariance Q
-
-### Measurement Model
-- IMU measurements used (orientation, angular velocity, linear acceleration)
-- Measurement noise covariance R
-
-### Sensor Fusion Approach
-- Block diagram of the fusion architecture
-- Update rates for each sensor
-
-### Tuning
-- How noise parameters were determined
-- Any challenges encountered
-
-### Code Structure
-- Key ROS nodes/files
-- Topic interfaces
--->
-
-*Section to be completed*
 
 ---
 
@@ -316,6 +293,7 @@ TODO: Add experimental results. Suggested content:
 - `gazebo_ros2_control`
 - `turtlebot3_gazebo` (world file integration)
 
+*these should be included in the installation script from class*
 
 ### Building
 
@@ -336,14 +314,9 @@ ros2 launch model_gazebo model_in_gazebo.launch.py
 
 ## Known Issues / Future Work
 
-<!--
-TODO: Document any limitations or planned improvements
-- Omni-wheel friction approximation limitations in Gazebo
-- Wheel slip at high accelerations
-- Plans for hardware deployment
--->
+This project has shown that the LeKiwi omniwheel robot can be effectively simulated in Gazebo, and Kalman filter-based odometry can be implemented to will improve the accuracy of raw encoder-based odometry. However, odometry alone accumulates substantial error, and in particular odometry on the omniwheel robot exhibits noticeably more drift when compared to a standard differential drive rover like the Turtlebot. To correct this drift one would need to incorporate information from exteroceptive sensors.   
 
-*Section to be completed*
+For future work one could consider utilizing the camera to recognize landmarks and perform localization, or return the arm joints to `revolute` and attempt manipulation tasks.
 
 ---
 
@@ -356,14 +329,9 @@ TODO: Document any limitations or planned improvements
 
 ## References
 
-<!--
-TODO: Add references
-- Papers on omni-wheel kinematics
-- UKF/sensor fusion references
-- ROS 2 documentation links
--->
-
-*To be added*
+* Lynch, K. M., & Park, F. C. (2017). *Modern Robotics: Mechanics, Planning, and Control* (Chapter 13: Wheeled Mobile Robots). Cambridge University Press.
+* Thrun, S., Burgard, W., & Fox, D. (2005). *Probabilistic Robotics*. MIT Press.
+* Hu, S., Chen, H., & Shao, Y. (2020). Triangular Omnidirectional Wheel Motion Control System. *Open Access Library Journal*, 7: e6677. [https://doi.org/10.4236/oalib.1106677](https://www.scirp.org/journal/paperinformation?paperid=102349)
 
 ---
 
