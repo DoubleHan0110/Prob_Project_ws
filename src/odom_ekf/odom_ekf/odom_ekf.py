@@ -23,7 +23,7 @@ class OdomEKF(Node):
         self.imu_sub = Subscriber(self, Imu, '/imu')
         self.joint_state_sub = Subscriber(self, JointState, '/joint_states')
         self.cmd_vel_sub = self.create_subscription(Twist, '/cmd_vel', self.cmd_vel_callback, 10)
-        self.odom_pub = self.create_publisher(Odometry, '/odom_ekf', 10)
+        self.odom_pub = self.create_publisher(Odometry, '/odom', 10)
 
         self.sync = ApproximateTimeSynchronizer([self.imu_sub, self.joint_state_sub], 10, slop = 0.04)
         self.sync.registerCallback(self.sync_callback)
@@ -34,7 +34,7 @@ class OdomEKF(Node):
 
         # define state and covariance
         self.state = np.zeros(6, dtype=np.float64) # [x, y, theta, vx, vy, omega]
-        self.state_cov = np.diag([1.0, 1.0, 1.0, 0.01, 0.01, 0.01]) 
+        self.state_cov = np.diag([0.1, 0.1, 0.1, 0.01, 0.01, 0.01]) 
         self.state_cov_bar = np.copy(self.state_cov)
 
         # define input
@@ -46,6 +46,8 @@ class OdomEKF(Node):
         # define time 
         self.last_time = None
         self.tf_broadcaster = TransformBroadcaster(self)
+        self.tf_hz = 0.02
+        self.tf_timer = self.create_timer(self.tf_hz, self.tf_callback)
 
     def cmd_vel_callback(self, msg):
         self.u_vx = msg.linear.x
@@ -53,10 +55,11 @@ class OdomEKF(Node):
         self.u_w = msg.angular.z
 
     def sync_callback(self, imu_msg, joint_state_msg):
+        now = self.get_clock().now().to_msg()
+        current_time = now.sec + now.nanosec * 1e-9
         if self.last_time is None:
-            self.last_time = imu_msg.header.stamp.sec + imu_msg.header.stamp.nanosec * 1e-9
+            self.last_time = current_time
             return
-        current_time = (imu_msg.header.stamp.sec + imu_msg.header.stamp.nanosec * 1e-9 + joint_state_msg.header.stamp.sec + joint_state_msg.header.stamp.nanosec * 1e-9) / 2.0
         dt = current_time - self.last_time
         if dt <= 0:
             return
@@ -175,8 +178,9 @@ class OdomEKF(Node):
 
         self.odom_pub.publish(odom_msg)
 
+    def tf_callback(self):
         t = TransformStamped()
-        t.header.stamp = odom_msg.header.stamp
+        t.header.stamp = self.get_clock().now().to_msg()
         t.header.frame_id = 'odom'
         t.child_frame_id = 'base_link'
 
@@ -189,7 +193,7 @@ class OdomEKF(Node):
         t.transform.rotation.z = np.sin(self.state[2] / 2.0)
         t.transform.rotation.w = np.cos(self.state[2] / 2.0)
 
-        # self.tf_broadcaster.sendTransform(t)
+        self.tf_broadcaster.sendTransform(t)
 
 
 def main(args=None):

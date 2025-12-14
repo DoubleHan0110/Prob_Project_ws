@@ -192,7 +192,7 @@ class UkfOdometry(Node):
         t.transform.rotation.z = np.sin(theta / 2.0)
         t.transform.rotation.w = np.cos(theta / 2.0)
 
-        self.tf_broadcaster.sendTransform(t)
+        # self.tf_broadcaster.sendTransform(t)
 
         self.ukf_pub.publish(odom_msg)
         

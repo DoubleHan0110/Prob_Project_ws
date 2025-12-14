@@ -9,7 +9,7 @@ class GroundTruthPub(Node):
     def __init__(self):
         super().__init__('ground_truth_pub')
         
-        self.base_link_name = 'LeKiwi_simplified::base_link'
+        self.base_link_name = 'LeKiwi_simplified_lidar::base_link'
         
         self.subscription = self.create_subscription(LinkStates,'/gazebo/link_states',self.link_states_callback,10)
         

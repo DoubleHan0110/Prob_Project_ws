@@ -4,8 +4,11 @@ from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
-
+from launch_ros.parameter_descriptions import ParameterValue
 from launch.substitutions import Command
+
+import xacro
+
 
 import os
 
@@ -19,26 +22,23 @@ def generate_launch_description():
     )
 
     description_pkg = FindPackageShare('model_description').find('model_description')
+
+    # world file name
     default_world = PathJoinSubstitution(
-        [model_gazebo_pkg, 'worlds', 'empty_world.world']
+        [model_gazebo_pkg, 'worlds', 'jackal_race.world']
     )
-    # default_world = PathJoinSubstitution(
-    #     [gazebo_pkg, 'worlds', 'empty.world']
-    # )
 
     controller_config = os.path.join(
         model_gazebo_pkg,
         'config',
-        'controllers.yaml'
+        'controllers.yaml')
+
+    # urdf file name
+    model_name = 'LeKiwi_simplified_lidar'                             
+    default_model_path = os.path.join(
+        description_pkg, 'urdf', model_name + '.urdf'
     )
 
-    # 机器人 URDF / Xacro 路径（改成你自己的文件名）
-    model_name = 'LeKiwi_simplified'                             #urdf文件名
-    default_model_path = PathJoinSubstitution(
-        [description_pkg, 'urdf', model_name + '.urdf']  
-    )
-
-    # ====== 声明 launch 参数（可选） ======
     world_arg = DeclareLaunchArgument(
         'world',
         default_value=default_world,
@@ -51,47 +51,46 @@ def generate_launch_description():
         description='Path to robot urdf/xacro'
     )
 
-    # ====== 启动 Gazebo（server + client） ======
+
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(gazebo_launch),
         launch_arguments={'world': LaunchConfiguration('world')}.items()
     )
 
-    # ====== 生成 robot_description 内容（用 xacro 也能处理 urdf） ======
+    
     robot_description_content = Command([
         'xacro ', LaunchConfiguration('model')
     ])
 
-    # ====== robot_state_publisher，用于 TF + /robot_description ======
+    
     rsp_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
-        parameters=[{'robot_description': robot_description_content}],
+        parameters=[{'robot_description': ParameterValue(robot_description_content, value_type=str)}],
     )
 
-    # ====== 用 spawn_entity.py 把机器人丢进 Gazebo ======
+    
     spawn_entity = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
         arguments=[
             '-entity', model_name,
             '-topic', 'robot_description',
-            # '-x', '0.0',
-            # '-y', '0.0',
-            # '-z', '0.2',
+            '-x', '0.0',
+            '-y', '0.0',
+            '-z', '0.2',
         ],
         output='screen'
     )
 
-    # 1. 启动 Joint State Broadcaster
+    
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
         arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
     )
 
-    # 3. 启动 Omni Wheel Controller
     omni_wheel_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
@@ -103,7 +102,6 @@ def generate_launch_description():
         executable='vel_cmd_to_wheel',
         name='vel_cmd_to_wheel',
         output='screen',
-        # change the default para here
         parameters=[
             {'wheel_radius': 0.05},
             {'wheel_separation': 0.149}

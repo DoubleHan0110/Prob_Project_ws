@@ -9,7 +9,7 @@ def generate_launch_description():
     pkg_share = FindPackageShare('model_description').find('model_description')
 
     default_model_path = PathJoinSubstitution(
-        [pkg_share, 'urdf', 'LeKiwi_simplified.urdf']   # 这里选你想看的那个 urdf
+        [pkg_share, 'urdf', 'LeKiwi_simplified.urdf']   # choose urdf file here
     )
 
     model_arg = DeclareLaunchArgument(
