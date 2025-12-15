@@ -174,7 +174,7 @@ TODO: Add simulation screenshots or video links here
 For our robot in Gazebo, the environment is perfectly flat and we assume that the only degrees of freedom of interest are planar translation and rotation about the vertical axis.
 
 <div align="center">
-<img src="diagram.png" alt="robot schematic" width="50%">
+<img src="fig/diagram.png" alt="robot schematic" width="50%">
 </div>
 
 ### 1. State Vector ($\mathbf{x}$) and Input Vector ($\mathbf{u}$)
