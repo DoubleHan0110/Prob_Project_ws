@@ -1,15 +1,17 @@
-# Final Project: Omni-Wheel Robot Odometry with UKF Sensor Fusion
+# Final Project: Omni-Wheel Robot Odometry with Kalman Filter Sensor Fusion
 
-A ROS 2 project implementing odometry for a three-wheeled omni-directional robot (equilateral triangle configuration) by fusing wheel encoder data with IMU measurements using an Unscented Kalman Filter.
+A ROS 2 project implementing odometry for a three-wheeled omni-directional robot (equilateral triangle configuration) by fusing wheel encoder data with IMU measurements using both Unscented Kalman Filter (UKF) and Extended Kalman Filter (EKF) approaches.
 
 ## Overview
 
-This is a final project for EEME6911 Topics in Control:Probabilistic Robotics. Our primary contributions are:
+This is a final project for EEME6911 Topics in Control: Probabilistic Robotics. Our primary contributions are:
 
 1. **Deriving a motion model** for the omni-wheel drivetrain (three wheels in an equilateral triangle configuration)
-2. **Implementing UKF-based odometry** by fusing this motion model with IMU sensor data
+2. **Implementing two odometry estimation approaches**: UKF-based and EKF-based sensor fusion
+3. **Providing ground truth comparison** via Gazebo link states for algorithm validation
+4. **Integrating with Nav2** for AMCL-based localization
 
-The project includes a complete simulation environment built on ROS 2 Humble and Gazebo, with the robot model, control interfaces, and kinematics nodes.
+The project includes a complete simulation environment built on ROS 2 Humble and Gazebo, with the robot model, control interfaces, kinematics nodes, and localization capabilities.
 
 ---
 
@@ -19,7 +21,7 @@ The project includes a complete simulation environment built on ROS 2 Humble and
 - [Repository Structure](#repository-structure)
 - [Simulation Environment Setup](#simulation-environment-setup)
 - [Motion Model Derivation for UKF](#motion-model-derivation-for-ukf)
-- [UKF Odometry Implementation](#ukf-odometry-implementation)
+- [Odometry Implementation](#odometry-implementation)
 - [Motion Model for EKF](#motion-model-for-ekf)
 - [Results](#results)
 - [Installation & Usage](#installation--usage)
@@ -48,18 +50,38 @@ src/
 ├── model_description/          # Robot URDF/meshes
 │   ├── urdf/
 │   │   └── LeKiwi_simplified.urdf
+│   │   └── LeKiwi_simplified_lidar.urdf
 │   ├── meshes/
+│   └── launch/
+│       └── display.launch.py
 │
-└── model_gazebo/               # Gazebo simulation & control
+├── model_gazebo/               # Gazebo simulation & control
+│   ├── launch/
+│   │   └── model_in_gazebo.launch.py
+│   ├── config/
+│   │   └── controllers.yaml
+│   ├── model_gazebo/
+│   │   ├── vel_cmd_to_wheel.py     # Inverse kinematics node
+│   │   ├── ukf_odometry.py         # UKF odometry implementation
+│   │   └── ground_truth_pub.py     # Gazebo ground truth publisher
+│   └── worlds/
+│       └── jackal_race.world
+│
+├── odom_ekf/                   # EKF odometry package
+│   ├── launch/
+│   │   └── odom_ekf.launch.py
+│   └── odom_ekf/
+│       └── odom_ekf.py          # EKF odometry implementation
+│
+└── model_navigation/           # Navigation & localization
     ├── launch/
-    │   └── model_in_gazebo.launch.py
+    │   └── localization.launch.py
     ├── config/
-    │   └── controllers.yaml
-    ├── model_gazebo/
-    │   └── vel_cmd_to_wheel.py     # Inverse kinematics and low level controller node
-    |   └── ukf_odometry.py    # ukf odometry implementation
-    |   └── ground_truth_pub.py     
-    └── worlds/
+    │   └── amcl_config.yaml
+    ├── maps/
+    │   └── jackal_race.yaml
+    └── rviz/
+        └── amcl_local.rviz
 ```
 
 ---
@@ -245,14 +267,50 @@ The measurement model is actually linear w.r.t the state. This means we won't ne
 
 ---
 
-## UKF Odometry Implementation
+## Odometry Implementation
 
-Implements a hybrid **Unscented Kalman Filter (Prediction)** and **Linear Kalman Filter (Correction)** for 3-wheel omnidirectional state estimation ($x \in \mathbb{R}^6$: Pose + Twist).
+We implemented two distinct Kalman filter approaches for state estimation, both tracking a 6-DOF state vector ($x \in \mathbb{R}^6$: position, orientation, and body-frame velocities).
 
-* **Prediction (IMU):** Propagates nonlinear dynamics $x_{k+1} = g(x_k, u_{imu}, \Delta t)$ using the Unscented Transform to handle process noise.
-* **Correction (Encoders):** Performs standard linear updates via observation model $z = C\mathbf{x}$ using wheel velocities from `/joint_states`.
-* **Interfaces:** Subscribes to `/imu`, `/joint_states`; publishes `/ukf_odometry` and broadcasts `odom` $\to$ `base_link` TF.
+### UKF Odometry (`ukf_odometry.py`)
 
+Implements a hybrid **Unscented Kalman Filter (Prediction)** and **Linear Kalman Filter (Correction)**:
+
+* **Prediction (IMU):** Propagates nonlinear dynamics $x_{k+1} = g(x_k, u_{imu}, \Delta t)$ using the Unscented Transform with sigma points to handle process noise
+* **Correction (Encoders):** Performs standard linear Kalman updates via observation model $z = C\mathbf{x}$ using wheel velocities from `/joint_states`
+* **Noise modeling:** Artificially corrupts encoder measurements with 2% velocity-proportional Gaussian noise for robustness testing
+* **Interfaces:** Subscribes to `/imu`, `/joint_states`; publishes `/ukf_odometry`
+
+### EKF Odometry (`odom_ekf.py`)
+
+Implements a first-order **Extended Kalman Filter** with synchronized sensor fusion:
+
+* **Sensor synchronization:** Uses `ApproximateTimeSynchronizer` to align IMU and encoder data (40ms tolerance)
+* **Prediction:** Linearizes dynamics via Jacobian $G_x$ to propagate state and covariance; incorporates `/cmd_vel` as control input with first-order lag dynamics
+* **Correction:** Fuses wheel encoder velocities and IMU gyroscope in a single update step using observation model $H$
+* **Interfaces:** Subscribes to `/imu`, `/joint_states`, `/cmd_vel`; publishes `/odom` and broadcasts `odom` $\to$ `base_link` TF
+
+### Ground Truth Publisher (`ground_truth_pub.py`)
+
+Extracts and republishes Gazebo's internal link state data for algorithm validation:
+
+* Subscribes to `/gazebo/link_states` and filters for `base_link`
+* Publishes:
+  - `/ground_truth/pose` (`PoseStamped`): Global pose with yaw-only orientation
+  - `/ground_truth/twist` (`TwistStamped`): Body-frame velocities transformed from world frame
+* Enables direct comparison of odometry estimates against simulation truth
+
+---
+
+## Navigation & Localization
+
+The `model_navigation` package provides AMCL-based localization capabilities:
+
+* **Map:** Pre-built map of the `jackal_race.world` environment
+* **AMCL:** Adaptive Monte Carlo Localization using particle filter for global pose estimation
+* **Launch file:** `localization.launch.py` starts map server, AMCL node, and RViz with custom configuration
+* **Integration:** Uses odometry from either UKF or EKF node as motion model input
+
+This enables testing of odometry quality by observing particle convergence and localization accuracy in RViz.
 
 ---
 
@@ -358,28 +416,9 @@ In implementation, this is a **linear** measurement model, developed from invers
 
 ## Results
 
-<!--
-TODO: Add experimental results. Suggested content:
+Both UKF and EKF implementations successfully fuse IMU and wheel encoder data to produce stable odometry estimates. The ground truth publisher facilitates comparison of drift and accuracy between these two approaches. Both methods produce comparible performance and there is no significant difference.
 
-### Test Scenarios
-- Straight line motion
-- Circular motion
-- Figure-8 pattern
-
-### Comparison
-- Wheel-only odometry vs fused odometry
-- Ground truth comparison (if available)
-
-### Plots
-- Position error over time
-- Orientation error over time
-- Covariance evolution
-
-### Videos
-- Embedded videos or links to demonstrations
--->
-
-*Section to be completed*
+Integration with AMCL localization confirms that both odometry sources provide sufficient accuracy for particle filter convergence in the mapped environment.
 
 ---
 
@@ -406,18 +445,38 @@ source install/setup.bash
 
 ### Running the Simulation
 
-Launch Gazebo with the robot:
+Launch Gazebo with the robot (includes UKF odometry and ground truth publisher):
 ```bash
 ros2 launch model_gazebo model_in_gazebo.launch.py
 ```
+
+**Or** launch with EKF odometry instead:
+```bash
+ros2 launch model_gazebo model_in_gazebo.launch.py  # in one terminal
+ros2 launch odom_ekf odom_ekf.launch.py             # in another terminal
+```
+
+### Running Localization
+
+After launching the simulation, start AMCL localization:
+```bash
+ros2 launch model_navigation localization.launch.py
+```
+
+This will open RViz with the map and particle cloud visualization.
 
 ---
 
 ## Known Issues / Future Work
 
-This project has shown that the LeKiwi omniwheel robot can be effectively simulated in Gazebo, and Kalman filter-based odometry can be implemented to will improve the accuracy of raw encoder-based odometry. However, odometry alone accumulates substantial error, and in particular odometry on the omniwheel robot exhibits noticeably more drift when compared to a standard differential drive rover like the Turtlebot. To correct this drift one would need to incorporate information from exteroceptive sensors.   
+This project has shown that the LeKiwi omniwheel robot can be effectively simulated in Gazebo, and both UKF and EKF implementations successfully fuse sensor data to produce usable odometry. However, odometry alone accumulates drift over time, and the omniwheel configuration exhibits more slip than traditional differential drive platforms like the Turtlebot.
 
-For future work one could consider utilizing the camera to recognize landmarks and perform localization, or return the arm joints to `revolute` and attempt manipulation tasks.
+The AMCL integration demonstrates that exteroceptive sensing (LIDAR-based localization) can correct this drift effectively. Future work could include:
+
+* Quantitative comparison of UKF vs EKF drift rates under various motion patterns
+* Vision-based landmark recognition for improved localization
+* Full Nav2 integration with autonomous navigation
+* Manipulation tasks using the robot's arm (currently disabled in simulation)
 
 ---
 
