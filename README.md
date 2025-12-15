@@ -95,9 +95,14 @@ Getting an omni-wheel robot to simulate correctly in Gazebo required substantial
 The robot model was converted from CAD to URDF with the following considerations:
 
 - **Inertial properties:** We ran a script to prune collision elements and inertias from the urdf tree so that the robot had a neutral center of mass and inertia tensors for stable simulation
+- **Sensors & Actuators:** Integrated 6-DOF IMU, Camera/LiDAR plugins, and velocity-controlled wheel actuators in `<gazebo>`.
 - **ros2_control integration:** Added `<ros2_control>` tags to define the hardware interface for Gazebo
 - **Collision geometry:** Simplified collision meshes for performance. Wheels themselves treated as cylinders 
 - **Omni-wheel friction:** Configured asymmetric friction (low lateral, normal longitudinal) to approximate omni-wheel behavior in Gazebo
+- **Model Variants:**
+  - `LeKiwi_simplified.urdf`: The standard version retaining the mechanical arm structure, equipped with general sensors of **Encoders/actuator** and **imu**.
+  - `LeKiwi_simplified_cam.urdf`:equipped with a **Depth Camera** in addition
+  - `LeKiwi_simplified_lidar.urdf`: A highly simplified version for localization, where the upper arm mechanism is removed to accommodate a **2D LiDAR**.
 
 ### ros2_control Integration
 
@@ -107,6 +112,10 @@ We used `ros2_control` with `gazebo_ros2_control` to interface with the simulate
 |-----------|---------|
 | `JointStateBroadcaster` | Publishes joint positions/velocities to `/joint_states` |
 | `JointGroupVelocityController` | Accepts velocity commands for all three wheels |
+| `IMU Sensor Plugin` | Simulates a 6-DOF IMU, publishing linear acceleration and angular velocity with their covariances to `/imu` |
+| `Ray Sensor (LiDAR) Plugin` | Simulates a 2D LiDAR scanner, publishing laser scan data to `/scan` |
+| `Depth Camera Plugin` | Simulates a depth camera, publishing RGB images, depth images, and point clouds to `/camera/...` |
+
 
 **Controller configuration** (`controllers.yaml`):
 ```yaml
@@ -367,6 +376,7 @@ where ω<sub>1,k</sub>, ω<sub>2,k</sub>, ω<sub>3,k</sub> are the three wheel a
 
 In implementation, this is a **linear** measurement model, developed from inverse kinematics of command to wheel velocities, also basically the same as UKF.
 
+---
 ## Odometry Implementation
 
 We implemented two distinct Kalman filter approaches for state estimation, both tracking a 6-DOF state vector ($x \in \mathbb{R}^6$: position, orientation, and body-frame velocities).
