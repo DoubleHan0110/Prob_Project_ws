@@ -428,7 +428,9 @@ This package orchestrates a complete localization pipeline: the map server loads
 
 Both UKF and EKF implementations successfully fuse IMU and wheel encoder data to produce stable odometry estimates. The ground truth publisher facilitates comparison of drift and accuracy between these two approaches. Both methods produce comparable performance and there is no significant difference.
 
-![UKF and EKF Odometry Comparison](fig/UKF_EKF_compare.png)
+<div align="center">
+<img src="fig/UKF_EKF_compare.png" width="60%" />
+</div>
 
 *RViz visualization showing pose covariance (purple ellipse) and coordinate frames (red: UKF&EKF/green: Ground truth arrows) for odometry estimation.*
 
