@@ -21,8 +21,8 @@ The project includes a complete simulation environment built on ROS 2 Humble and
 - [Repository Structure](#repository-structure)
 - [Simulation Environment Setup](#simulation-environment-setup)
 - [Motion Model Derivation for UKF](#motion-model-derivation-for-ukf)
-- [Odometry Implementation](#odometry-implementation)
 - [Motion Model for EKF](#motion-model-for-ekf)
+- [Odometry Implementation](#odometry-implementation)
 - [Results](#results)
 - [Installation & Usage](#installation--usage)
 - [Team Members](#team-members)
@@ -267,53 +267,6 @@ The measurement model is actually linear w.r.t the state. This means we won't ne
 
 ---
 
-## Odometry Implementation
-
-We implemented two distinct Kalman filter approaches for state estimation, both tracking a 6-DOF state vector ($x \in \mathbb{R}^6$: position, orientation, and body-frame velocities).
-
-### UKF Odometry (`ukf_odometry.py`)
-
-Implements a hybrid **Unscented Kalman Filter (Prediction)** and **Linear Kalman Filter (Correction)**:
-
-* **Prediction (IMU):** Propagates nonlinear dynamics $x_{k+1} = g(x_k, u_{imu}, \Delta t)$ using the Unscented Transform with sigma points to handle process noise
-* **Correction (Encoders):** Performs standard linear Kalman updates via observation model $z = C\mathbf{x}$ using wheel velocities from `/joint_states`
-* **Noise modeling:** Artificially corrupts encoder measurements with 2% velocity-proportional Gaussian noise for robustness testing
-* **Interfaces:** Subscribes to `/imu`, `/joint_states`; publishes `/ukf_odometry`
-
-### EKF Odometry (`odom_ekf.py`)
-
-Implements a first-order **Extended Kalman Filter** with synchronized sensor fusion:
-
-* **Sensor synchronization:** Uses `ApproximateTimeSynchronizer` to align IMU and encoder data (40ms tolerance)
-* **Prediction:** Linearizes dynamics via Jacobian $G_x$ to propagate state and covariance; incorporates `/cmd_vel` as control input with first-order lag dynamics
-* **Correction:** Fuses wheel encoder velocities and IMU gyroscope in a single update step using observation model $H$
-* **Interfaces:** Subscribes to `/imu`, `/joint_states`, `/cmd_vel`; publishes `/odom` and broadcasts `odom` $\to$ `base_link` TF
-
-### Ground Truth Publisher (`ground_truth_pub.py`)
-
-Extracts and republishes Gazebo's internal link state data for algorithm validation:
-
-* Subscribes to `/gazebo/link_states` and filters for `base_link`
-* Publishes:
-  - `/ground_truth/pose` (`PoseStamped`): Global pose with yaw-only orientation
-  - `/ground_truth/twist` (`TwistStamped`): Body-frame velocities transformed from world frame
-* Enables direct comparison of odometry estimates against simulation truth
-
----
-
-## Navigation & Localization
-
-The `model_navigation` package provides AMCL-based localization capabilities:
-
-* **Map:** Pre-built map of the `jackal_race.world` environment
-* **AMCL:** Adaptive Monte Carlo Localization using particle filter for global pose estimation
-* **Launch file:** `localization.launch.py` starts map server, AMCL node, and RViz with custom configuration
-* **Integration:** Uses odometry from either UKF or EKF node as motion model input
-
-This enables testing of odometry quality by observing particle convergence and localization accuracy in RViz.
-
----
-
 ## Motion Model for EKF
 
 ### 1. State Vector ($\mathbf{x}$) and Input Vector ($\mathbf{u}$)
@@ -413,6 +366,53 @@ $$
 where ω<sub>1,k</sub>, ω<sub>2,k</sub>, ω<sub>3,k</sub> are the three wheel angular velocities (encoder readings), and ω<sub>imu,k</sub> is the IMU-measured yaw rate.
 
 In implementation, this is a **linear** measurement model, developed from inverse kinematics of command to wheel velocities, also basically the same as UKF.
+
+## Odometry Implementation
+
+We implemented two distinct Kalman filter approaches for state estimation, both tracking a 6-DOF state vector ($x \in \mathbb{R}^6$: position, orientation, and body-frame velocities).
+
+### UKF Odometry (`ukf_odometry.py`)
+
+Implements a hybrid **Unscented Kalman Filter (Prediction)** and **Linear Kalman Filter (Correction)**:
+
+* **Prediction (IMU):** Propagates nonlinear dynamics $x_{k+1} = g(x_k, u_{imu}, \Delta t)$ using the Unscented Transform with sigma points to handle process noise
+* **Correction (Encoders):** Performs standard linear Kalman updates via observation model $z = C\mathbf{x}$ using wheel velocities from `/joint_states`
+* **Noise modeling:** Artificially corrupts encoder measurements with 2% velocity-proportional Gaussian noise for robustness testing
+* **Interfaces:** Subscribes to `/imu`, `/joint_states`; publishes `/ukf_odometry`
+
+### EKF Odometry (`odom_ekf.py`)
+
+Implements a first-order **Extended Kalman Filter** with synchronized sensor fusion:
+
+* **Sensor synchronization:** Uses `ApproximateTimeSynchronizer` to align IMU and encoder data (40ms tolerance)
+* **Prediction:** Linearizes dynamics via Jacobian $G_x$ to propagate state and covariance; incorporates `/cmd_vel` as control input with first-order lag dynamics
+* **Correction:** Fuses wheel encoder velocities and IMU gyroscope in a single update step using observation model $H$
+* **Interfaces:** Subscribes to `/imu`, `/joint_states`, `/cmd_vel`; publishes `/odom` and broadcasts `odom` $\to$ `base_link` TF
+
+### Ground Truth Publisher (`ground_truth_pub.py`)
+
+Extracts and republishes Gazebo's internal link state data for algorithm validation:
+
+* Subscribes to `/gazebo/link_states` and filters for `base_link`
+* Publishes:
+  - `/ground_truth/pose` (`PoseStamped`): Global pose with yaw-only orientation
+  - `/ground_truth/twist` (`TwistStamped`): Body-frame velocities transformed from world frame
+* Enables direct comparison of odometry estimates against simulation truth
+
+---
+
+## Navigation & Localization
+
+The `model_navigation` package provides AMCL-based localization capabilities:
+
+* **Map:** Pre-built map of the `jackal_race.world` environment
+* **AMCL:** Adaptive Monte Carlo Localization using particle filter for global pose estimation
+* **Launch file:** `localization.launch.py` starts map server, AMCL node, and RViz with custom configuration
+* **Integration:** Uses odometry from either UKF or EKF node as motion model input
+
+This enables testing of odometry quality by observing particle convergence and localization accuracy in RViz.
+
+---
 
 ## Results
 
