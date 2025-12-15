@@ -100,11 +100,11 @@ The robot model was converted from CAD to URDF with the following considerations
 - **Collision geometry:** Simplified collision meshes for performance. Wheels themselves treated as cylinders 
 - **Omni-wheel friction:** Configured asymmetric friction (low lateral, normal longitudinal) to approximate omni-wheel behavior in Gazebo
 - **Model Variants:**
-  - `LeKiwi_simplified.urdf`: The standard version retaining the mechanical arm structure, equipped with general sensors of **Encoders/actuator** and **imu**.
-  - `LeKiwi_simplified_cam.urdf`:equipped with a **Depth Camera** in addition
-  - `LeKiwi_simplified_lidar.urdf`: A highly simplified version for localization, where the upper arm mechanism is removed to accommodate a **2D LiDAR**.
+  - `LeKiwi_simplified.urdf`: The standard version retaining the mechanical arm structure, equipped with general sensors of Encoders/actuator and imu.
+  - `LeKiwi_simplified_cam.urdf`:equipped with a Depth Camera in addition
+  - `LeKiwi_simplified_lidar.urdf`: A highly simplified version for localization, where the upper arm mechanism is removed to accommodate a 2D LiDAR.
 
-### ros2_control Integration
+### Gazebo Plugins & Controllers
 
 We used `ros2_control` with `gazebo_ros2_control` to interface with the simulated robot:
 
@@ -420,15 +420,23 @@ The `model_navigation` package provides AMCL-based localization capabilities:
 * **Launch file:** `localization.launch.py` starts map server, AMCL node, and RViz with custom configuration
 * **Integration:** Uses odometry from either UKF or EKF node as motion model input
 
-This enables testing of odometry quality by observing particle convergence and localization accuracy in RViz.
+This package orchestrates a complete localization pipeline: the map server loads a pre-built occupancy grid map, AMCL performs particle filter-based localization using LiDAR scans and odometry input. RViz visualization enables real-time monitoring of particle convergence, pose estimates, and map alignment, facilitating comprehensive evaluation of both odometry quality and localization accuracy.
 
 ---
 
 ## Results
 
-Both UKF and EKF implementations successfully fuse IMU and wheel encoder data to produce stable odometry estimates. The ground truth publisher facilitates comparison of drift and accuracy between these two approaches. Both methods produce comparible performance and there is no significant difference.
+Both UKF and EKF implementations successfully fuse IMU and wheel encoder data to produce stable odometry estimates. The ground truth publisher facilitates comparison of drift and accuracy between these two approaches. Both methods produce comparable performance and there is no significant difference.
+
+![UKF and EKF Odometry Comparison](fig/UKF_EKF_compare.png)
+
+*RViz visualization showing pose covariance (purple ellipse) and coordinate frames (red: UKF&EKF/green: Ground truth arrows) for odometry estimation.*
+
 
 Integration with AMCL localization confirms that both odometry sources provide sufficient accuracy for particle filter convergence in the mapped environment.
+
+![amcl](fig/amcl.png)
+*RViz visualization of AMCL particle filter localization: the map (dark green grid), robot pose estimate (red models), particle cloud distribution (red particles), and LiDAR scan data (blue lines) are shown. The visualization demonstrates successful convergence of the particle filter and accurate pose tracking within the mapped environment.*
 
 ---
 
