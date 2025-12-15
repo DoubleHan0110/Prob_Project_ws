@@ -137,7 +137,7 @@ TODO: Add simulation screenshots or video links here
 
 ---
 
-## Motion Model Derivation
+## Motion Model Derivation for UKF
 
 For our robot in Gazebo, the environment is perfectly flat and we assume that the only degrees of freedom of interest are planar translation and rotation about the vertical axis.
 
@@ -254,6 +254,106 @@ Implements a hybrid **Unscented Kalman Filter (Prediction)** and **Linear Kalman
 
 
 ---
+
+## Motion Model for EKF
+
+### 1. State Vector ($\mathbf{x}$) and Input Vector ($\mathbf{u}$)
+
+The state vector here is also the same as the UKF:
+
+$$
+\mathbf{x} = \begin{bmatrix} p_x & p_y & \theta & v_x & v_y & \omega \end{bmatrix}^\top
+$$
+
+where:
+
+- $p_x, p_y$ denote the robot’s planar position in the global frame,
+- $\theta$ represents the robot’s yaw angle (heading),
+- $v_x, v_y$ are the linear velocities of the robot expressed in the robot body frame,
+- $\omega$ is the angular velocity around the vertical (z) axis.
+
+But the control input to the system is defined as:
+
+$$
+\mathbf{u} = \begin{bmatrix} v_x & v_y & \omega \end{bmatrix}^\top
+$$
+
+where:
+
+- $v_x, v_y$ are the commanded linear velocities in the robot body frame,
+- $\omega$ is the commanded angular velocity.
+
+These inputs correspond to the control commands processed by the vel_cmd_to_wheel node. So we can get them directly from the "cmd_vel" topicss
+
+### 2. Motion Model
+
+To better match the observed Gazebo-simulation behavior where the actual velocities do not instantaneously track `cmd_vel`, we model the system with:
+1) world-frame position kinematics (integrating body-frame velocities into world-frame pose)  
+2) a first-order velocity response model (actuator dynamics) for the three commanded velocities.
+
+
+#### 2.1 Planar kinematics (body → world)
+
+The state velocities $v_x, v_y$ are expressed in the robot body frame (`base_link`), while $(p_x, p_y, \theta)$ are expressed in the global frame (`odom/world`). 
+
+With sampling period $\Delta t$, the updated equation for the pose states:
+
+
+$$
+\begin{aligned}
+p_{x,k+1} &= p_{x,k} + (v_{x,k}\cos\theta_k - v_{y,k}\sin\theta_k)\Delta t \\
+p_{y,k+1} &= p_{y,k} + (v_{x,k}\sin\theta_k + v_{y,k}\cos\theta_k)\Delta t \\
+\theta_{k+1} &= \theta_k + \omega_k \Delta t
+\end{aligned}
+$$
+
+#### 2.2 First-order velocity response
+
+From the ground-truth step responses of $v_x$, $v_y$, and $\omega$ (see plots below), the velocity tracking behavior is well approximated by a first-order system. We therefore model:
+
+$$
+\begin{aligned}
+v_{x,k+1} &= v_{x,k} + \frac{\Delta t}{\tau_x}(u_{v_x,k}-v_{x,k}) \\
+v_{y,k+1} &= v_{y,k} + \frac{\Delta t}{\tau_y}(u_{v_y,k}-v_{y,k}) \\
+\omega_{k+1} &= \omega_k + \frac{\Delta t}{\tau_\omega}(u_{\omega,k}-\omega_k)
+\end{aligned}
+$$
+
+where the time constants are approximated from the step-response curves:
+- $\tau_x \approx 0.13\,\mathrm{s}$
+- $\tau_y \approx 0.14\,\mathrm{s}$
+- $\tau_\omega \approx 0.013\,\mathrm{s}$
+
+<div align="center">
+  <img src="src/odom_ekf/fig/linear_x.png" width="40%" />
+  <img src="src/odom_ekf/fig/linear_y.png" width="40%" />
+  
+</div>
+<div align="center">
+<img src="src/odom_ekf/fig/angular_z.png" width="50%" />
+</div>
+
+## 3. Measurement
+
+The EKF uses two sensor sources:
+- **Wheel encoders**: wheel angular velocities from the `/joint_states` topic with made up covarience.
+- **IMU**: yaw-rate measurement (angular velocity about the z-axis) from the `/imu` topic with gaussian covarianve.
+
+We define the measurement vector as:
+
+$$
+\mathbf{z}_k =
+\begin{bmatrix}
+\omega_{1,k} \\
+\omega_{2,k} \\
+\omega_{3,k} \\
+\omega^{imu}_k
+\end{bmatrix}
+$$
+
+where ω<sub>1,k</sub>, ω<sub>2,k</sub>, ω<sub>3,k</sub> are the three wheel angular velocities (encoder readings), and ω<sub>imu,k</sub> is the IMU-measured yaw rate.
+
+In implementation, this is a **linear** measurement model, developed from inverse kinematics of command to wheel velocities, also basically the same as UKF.
 
 ## Results
 
